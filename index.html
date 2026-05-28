@@ -10,7 +10,7 @@
     content="width=device-width, initial-scale=1.0"
 />
 
-<title>RoadMap Previred Responsive</title>
+<title>RoadMap Previred</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -428,7 +428,7 @@ COLORS
 /* =========================================================
 TODAY LINE
 ========================================================= */
-
+/*
 .today-wrapper{
 
     position:absolute;
@@ -461,7 +461,39 @@ TODAY LINE
         0 0 0 4px rgba(236,72,153,.12),
         0 0 20px rgba(236,72,153,.45);
 }
+*/
+.today-wrapper{
 
+    position:absolute;
+
+    top:70px;
+
+    z-index:100;
+
+    pointer-events:none;
+}
+
+.today-line{
+
+    position:absolute;
+
+    top:0;
+
+    height:100%;
+
+    width:4px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #ec4899,
+            #f472b6
+        );
+
+    box-shadow:
+        0 0 0 4px rgba(236,72,153,.12),
+        0 0 20px rgba(236,72,153,.45);
+}
 .today-label{
 
     position:absolute;
@@ -579,6 +611,43 @@ RESPONSIVE
         padding:8px 12px;
     }
 }
+/* =========================================================
+TITLE + LOGO
+========================================================= */
+
+.title-flex{
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    flex-wrap:wrap;
+}
+
+.isl-logo{
+
+    height:42px;
+    width:auto;
+
+    object-fit:contain;
+
+    display:block;
+}
+
+/* responsive */
+
+@media(max-width:900px){
+
+    .isl-logo{
+
+        height:32px;
+    }
+
+    .title-flex{
+
+        gap:10px;
+    }
+}
 
 </style>
 
@@ -589,12 +658,26 @@ RESPONSIVE
 <div class="app">
 
     <div class="topbar">
+        
 
         <div class="title-area">
+            <h1 class="title-flex">
 
-            <h1>
-                🚀 RoadMap Proyecto Previred 2025 - 2026
+                
+
+                <img
+                    src="logo-isl-500-px.png"
+                    alt=""
+                    class="isl-logo"
+                >
+              
+
+                <span>
+                    RoadMap Proyecto Previred 2025 - 2026
+                </span>
+
             </h1>
+           
 
             <p>
                 Seguimiento visual del proyecto
@@ -1872,8 +1955,15 @@ document.addEventListener("DOMContentLoaded", () => {
         fixedColumnsWidth +
         (timelineWidth * percent);
 
-    todayWrapper.style.left =
-        `${position}px`;
+    todayWrapper.style.left = `${position}px`;
+
+    // altura completa de la tabla
+    todayWrapper.style.height =
+        `${roadmap.offsetHeight}px`;
+
+    //todayWrapper.style.left =
+    //   `${position}px`;
+        
 
     const formatDate =
         today.toLocaleDateString(
