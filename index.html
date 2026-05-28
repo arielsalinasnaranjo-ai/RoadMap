@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+/>
+
+<title>RoadMap Previred Responsive</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+/>
+
+<style>
+
+/* =========================================================
+ROOT
+========================================================= */
+
+:root{
+
+    --bg:#f4f7fb;
+    --card:#ffffff;
+    --border:#e5e7eb;
+    --text:#111827;
+    --muted:#6b7280;
+
+    --blue:#2563eb;
+    --blue-soft:#dbeafe;
+
+    --green:#16a34a;
+    --green-soft:#dcfce7;
+
+    --orange:#ea580c;
+    --orange-soft:#ffedd5;
+
+    --yellow:#ca8a04;
+    --yellow-soft:#fef9c3;
+
+    --shadow:
+        0 10px 25px rgba(0,0,0,.06),
+        0 2px 8px rgba(0,0,0,.04);
+}
+
+/* =========================================================
+GLOBAL
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Inter', sans-serif;
+
+    background:
+        radial-gradient(circle at top left,#dbeafe 0%,transparent 30%),
+        radial-gradient(circle at bottom right,#ede9fe 0%,transparent 30%),
+        var(--bg);
+
+    color:var(--text);
+
+    min-height:100vh;
+}
+
+/* =========================================================
+APP
+========================================================= */
+
+.app{
+    width:100%;
+    padding:20px;
+}
+
+/* =========================================================
+TOPBAR
+========================================================= */
+
+.topbar{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
+
+    margin-bottom:20px;
+}
+
+.title-area h1{
+
+    font-size:clamp(24px,4vw,36px);
+    font-weight:800;
+
+    margin-bottom:8px;
+}
+
+.title-area p{
+
+    color:var(--muted);
+    font-size:14px;
+}
+
+.badge{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    padding:12px 18px;
+
+    border-radius:14px;
+
+    box-shadow:var(--shadow);
+
+    font-size:14px;
+    font-weight:600;
+}
+
+/* =========================================================
+ROADMAP
+========================================================= */
+
+.roadmap-container{
+
+    background:var(--card);
+
+    border-radius:22px;
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
+}
+
+.roadmap-wrapper{
+
+    position:relative;
+
+    overflow:auto;
+
+    max-height:calc(100vh - 180px);
+
+    padding-top:70px;
+}
+
+/* =========================================================
+TABLE
+========================================================= */
+
+.roadmap{
+
+    border-collapse:separate;
+    border-spacing:0;
+
+    min-width:1700px;
+    width:max-content;
+}
+
+/* =========================================================
+HEADER
+========================================================= */
+
+.roadmap thead th{
+
+    position:sticky;
+    top:0;
+
+    z-index:50;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1e3a8a,
+            #2563eb
+        );
+
+    color:white;
+
+    padding:18px 14px;
+
+    font-size:13px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+    white-space:nowrap;
+}
+
+.col-task{
+
+    width:360px;
+    min-width:360px;
+
+    text-align:left !important;
+
+    position:sticky;
+    left:0;
+
+    z-index:60;
+}
+
+.col-days{
+    width:110px;
+    min-width:110px;
+}
+
+.col-date{
+    width:140px;
+    min-width:140px;
+}
+
+/* =========================================================
+BODY
+========================================================= */
+
+tbody tr{
+    transition:.25s ease;
+}
+
+tbody tr:hover{
+    background:#f8fafc;
+}
+
+tbody td{
+
+    padding:14px;
+
+    border-bottom:1px solid #eef2f7;
+
+    font-size:13px;
+
+    height:72px;
+
+    background:white;
+
+    position:relative;
+
+    white-space:nowrap;
+}
+
+/* sticky first column */
+
+tbody td:first-child{
+
+    position:sticky;
+
+    left:0;
+
+    z-index:30;
+
+    background:white;
+
+    box-shadow:
+        4px 0 10px rgba(0,0,0,.03);
+}
+
+/* =========================================================
+LEVELS
+========================================================= */
+
+.level1 td{
+
+    background:
+        linear-gradient(
+            to right,
+            #eff6ff,
+            #ffffff
+        ) !important;
+
+    font-weight:700;
+}
+
+.level2{
+
+    padding-left:35px !important;
+
+    color:#374151;
+}
+
+.level2::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:18px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#3b82f6;
+}
+
+/* =========================================================
+GANTT CELL
+========================================================= */
+
+.gantt-cell{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        repeating-linear-gradient(
+            to right,
+            #f8fafc,
+            #f8fafc 119px,
+            #e5e7eb 120px
+        );
+}
+
+/* =========================================================
+BARS
+========================================================= */
+
+.bar{
+
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    height:42px;
+
+    border-radius:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:0 16px;
+
+    font-size:12px;
+    font-weight:700;
+
+    color:#111827;
+
+    overflow:hidden;
+    text-overflow:ellipsis;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,.08),
+        inset 0 1px 0 rgba(255,255,255,.5);
+}
+
+.bar:hover{
+
+    transform:
+        translateY(-50%)
+        scale(1.03);
+}
+
+/* =========================================================
+COLORS
+========================================================= */
+
+.blue{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue-soft),
+            #bfdbfe
+        );
+
+    border:2px solid var(--blue);
+}
+
+.green{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green-soft),
+            #bbf7d0
+        );
+
+    border:2px solid var(--green);
+}
+
+.orange{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange-soft),
+            #fdba74
+        );
+
+    border:2px solid var(--orange);
+}
+
+.yellow{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--yellow-soft),
+            #fde68a
+        );
+
+    border:2px solid var(--yellow);
+}
+
+/* =========================================================
+TODAY LINE
+========================================================= */
+
+.today-wrapper{
+
+    position:absolute;
+
+    top:70px;
+    bottom:0;
+
+    z-index:100;
+
+    pointer-events:none;
+}
+
+.today-line{
+
+    position:absolute;
+
+    top:0;
+    bottom:0;
+
+    width:4px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #ec4899,
+            #f472b6
+        );
+
+    box-shadow:
+        0 0 0 4px rgba(236,72,153,.12),
+        0 0 20px rgba(236,72,153,.45);
+}
+
+.today-label{
+
+    position:absolute;
+
+    top:-55px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:
+        linear-gradient(
+            135deg,
+            #db2777,
+            #ec4899
+        );
+
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:999px;
+
+    font-size:12px;
+    font-weight:700;
+
+    white-space:nowrap;
+
+    z-index:999;
+
+    animation:floatToday 3s ease-in-out infinite;
+}
+
+@keyframes floatToday{
+
+    0%{
+        transform:translateX(-50%) translateY(0);
+    }
+
+    50%{
+        transform:translateX(-50%) translateY(-4px);
+    }
+
+    100%{
+        transform:translateX(-50%) translateY(0);
+    }
+}
+
+/* =========================================================
+SCROLLBAR
+========================================================= */
+
+.roadmap-wrapper::-webkit-scrollbar{
+    height:14px;
+    width:14px;
+}
+
+.roadmap-wrapper::-webkit-scrollbar-thumb{
+
+    background:
+        linear-gradient(
+            to right,
+            #94a3b8,
+            #64748b
+        );
+
+    border-radius:999px;
+}
+
+.roadmap-wrapper::-webkit-scrollbar-track{
+    background:#e2e8f0;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+    .app{
+        padding:10px;
+    }
+
+    .badge{
+        width:100%;
+    }
+
+    .col-task{
+        width:260px;
+        min-width:260px;
+    }
+
+    .col-days{
+        width:90px;
+        min-width:90px;
+    }
+
+    .col-date{
+        width:120px;
+        min-width:120px;
+    }
+
+    tbody td,
+    thead th{
+        padding:10px;
+        font-size:12px;
+    }
+
+    .bar{
+        height:36px;
+        font-size:11px;
+    }
+
+    .today-label{
+        font-size:10px;
+        padding:8px 12px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="topbar">
+
+        <div class="title-area">
+
+            <h1>
+                🚀 RoadMap Proyecto Previred 2025 - 2026
+            </h1>
+
+            <p>
+                Seguimiento visual del proyecto
+            </p>
+
+        </div>
+
+        <div class="badge">
+            📅 Estado actualizado
+        </div>
+
+    </div>
+
+    <div class="roadmap-container">
+
+        <div
+            class="roadmap-wrapper"
+            id="roadmapWrapper"
+        >
+
+            <div
+                class="today-wrapper"
+                id="todayWrapper"
+            >
+
+                <div class="today-line"></div>
+
+                <div
+                    class="today-label"
+                    id="todayLabel"
+                ></div>
+
+            </div>
+
+            <table class="roadmap">
+
+                <thead>
+
+                    <tr>
+
+                        <th class="col-task">Tarea</th>
+                        <th class="col-days">Duración</th>
+                        <th class="col-date">Inicio</th>
+                        <th class="col-date">Fin</th>
+
+                        <th>Dic 2025</th>
+                        <th>Ene 2026</th>
+                        <th>Feb 2026</th>
+                        <th>Mar 2026</th>
+                        <th>Abr 2026</th>
+                        <th>May 2026</th>
+                        <th>Jun 2026</th>
+                        <th>Jul 2026</th>
+                        <th>Ago 2026</th>
+                        <th>Sep 2026</th>
+                        <th>Oct 2026</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    <!-- =====================================================
+                    HITO 3
+                    ===================================================== -->
+
+                    <tr class="level1">
+
+                    <td>
+                    Hito 3 / Funcionalidades
+                    </td>
+
+                    <td>247 días</td>
+                    <td>jue 04-12-25</td>
+                    <td>vie 13-11-26</td>
+
+                    <td colspan="11" class="gantt-cell">
+
+                    <div
+                    class="bar blue"
+                    style="
+                    left:0%;
+                    width:98%;
+                    "
+                    >
+                    Hito 3 / Funcionalidades
+                    </div>
+
+                    </td>
+
+                    </tr>
+
+                    <!-- =====================================================
+                    3.1
+                    ===================================================== -->
+
+                    <tr class="level1">
+
+                    <td>
+                    3.1 Pago parcial de DNP
+                    </td>
+
+                    <td>173 días</td>
+                    <td>mar 16-12-25</td>
+                    <td>jue 13-08-26</td>
+
+                    <td colspan="9" class="gantt-cell">
+
+                    <div
+                    class="bar green"
+                    style="
+                    left:5%;
+                    width:70%;
+                    "
+                    >
+                    Pago parcial de DNP
+                    </div>
+
+                    </td>
+
+                    <td></td>
+                    <td></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.1.1 Levantamiento de Requerimientos
+                    </td>
+
+                    <td>31 días</td>
+                    <td>mar 16-12-25</td>
+                    <td>mar 27-01-26</td>
+
+                    <td colspan="2" class="gantt-cell">
+
+                    <div
+                    class="bar blue"
+                    style="
+                    left:0%;
+                    width:70%;
+                    "
+                    >
+                    31 días
+                    </div>
+
+                    </td>
+
+                    <td colspan="9"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.1.2 Construcción Previred
+                    </td>
+
+                    <td>71 días</td>
+                    <td>mié 28-01-26</td>
+                    <td>mié 06-05-26</td>
+
+                    <td></td>
+
+                    <td colspan="4" class="gantt-cell">
+
+                    <div
+                    class="bar orange"
+                    style="
+                    left:5%;
+                    width:85%;
+                    "
+                    >
+                    Construcción Previred
+                    </div>
+
+                    </td>
+
+                    <td colspan="6"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.1.3 Certificación Previred
+                    </td>
+
+                    <td>34 días</td>
+                    <td>jue 30-04-26</td>
+                    <td>mar 16-06-26</td>
+
+                    <td colspan="4"></td>
+
+                    <td colspan="2" class="gantt-cell">
+
+                    <div
+                    class="bar yellow"
+                    style="
+                    left:10%;
+                    width:70%;
+                    "
+                    >
+                    Certificación Previred
+                    </div>
+
+                    </td>
+
+                    <td colspan="5"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.1.4 Generación de Datos de prueba para ISL
+                    </td>
+
+                    <td>5 días</td>
+                    <td>lun 22-06-26</td>
+                    <td>vie 26-06-26</td>
+
+                    <td colspan="6"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar blue"
+                    style="
+                    left:55%;
+                    width:22%;
+                    "
+                    >
+                    ISL
+                    </div>
+
+                    </td>
+
+                    <td colspan="4"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.1.5 Certificación ISL
+                    </td>
+
+                    <td>2 días</td>
+                    <td>lun 29-06-26</td>
+                    <td>mar 30-06-26</td>
+
+                    <td colspan="6"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar green"
+                    style="
+                    left:72%;
+                    width:24%;
+                    "
+                    title="3.1.5 Certificación ISL"
+                    >
+                    ✔
+                    </div>
+
+                    </td>
+
+                    <td colspan="4"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.1.6 Paso a Producción
+                    </td>
+
+                    <td>1 día</td>
+                    <td>jue 02-07-26</td>
+                    <td>jue 02-07-26</td>
+
+                    <td colspan="7"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar orange"
+                    style="
+                    left:5%;
+                    width:12%;
+                    "
+                    >
+                    🚀
+                    </div>
+
+                    </td>
+
+                    <td colspan="3"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.1.7 Marcha Blanca
+                    </td>
+
+                    <td>30 días</td>
+                    <td>vie 03-07-26</td>
+                    <td>jue 13-08-26</td>
+
+                    <td colspan="7"></td>
+
+                    <td colspan="2" class="gantt-cell">
+
+                    <div
+                    class="bar green"
+                    style="
+                    left:10%;
+                    width:80%;
+                    "
+                    >
+                    Marcha Blanca
+                    </div>
+
+                    </td>
+
+                    <td colspan="2"></td>
+
+                    </tr>
+
+                    <!-- =====================================================
+                    3.2
+                    ===================================================== -->
+
+                    <tr class="level1">
+
+                    <td>
+                    3.2 Pago por subrogación de entidades empleadoras mandantes
+                    </td>
+
+                    <td>233 días</td>
+                    <td>jue 04-12-25</td>
+                    <td>lun 26-10-26</td>
+
+                    <td colspan="11" class="gantt-cell">
+
+                    <div
+                    class="bar blue"
+                    style="
+                    left:0%;
+                    width:92%;
+                    "
+                    >
+                    Pago subrogación entidades empleadoras
+                    </div>
+
+                    </td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.2.1 Levantamiento de Requerimientos
+                    </td>
+
+                    <td>42 días</td>
+                    <td>jue 04-12-25</td>
+                    <td>vie 30-01-26</td>
+
+                    <td colspan="2" class="gantt-cell">
+
+                    <div
+                    class="bar blue"
+                    style="
+                    left:0%;
+                    width:85%;
+                    "
+                    >
+                    42 días
+                    </div>
+
+                    </td>
+
+                    <td colspan="9"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.2.2 Construcción Previred
+                    </td>
+
+                    <td>179 días</td>
+                    <td>mié 14-01-26</td>
+                    <td>lun 21-09-26</td>
+
+                    <td></td>
+
+                    <td colspan="8" class="gantt-cell">
+
+                    <div
+                    class="bar orange"
+                    style="
+                    left:5%;
+                    width:90%;
+                    "
+                    >
+                    Construcción Previred
+                    </div>
+
+                    </td>
+
+                    <td colspan="2"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.2.3 Certificación Previred
+                    </td>
+
+                    <td>160 días</td>
+                    <td>mié 28-01-26</td>
+                    <td>mar 08-09-26</td>
+
+                    <td></td>
+
+                    <td colspan="7" class="gantt-cell">
+
+                    <div
+                    class="bar yellow"
+                    style="
+                    left:15%;
+                    width:85%;
+                    "
+                    >
+                    Certificación Previred
+                    </div>
+
+                    </td>
+
+                    <td colspan="3"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.2.4 Generación de Datos de prueba para ISL
+                    </td>
+
+                    <td>15 días</td>
+                    <td>vie 13-03-26</td>
+                    <td>jue 02-04-26</td>
+
+                    <td colspan="3"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar blue"
+                    style="
+                    left:20%;
+                    width:50%;
+                    "
+                    >
+                    Datos ISL
+                    </div>
+
+                    </td>
+
+                    <td colspan="7"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.2.5 Certificación ISL
+                    </td>
+
+                    <td>6 días</td>
+                    <td>vie 27-03-26</td>
+                    <td>vie 03-04-26</td>
+
+                    <td colspan="3"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar green"
+                    style="
+                    left:55%;
+                    width:25%;
+                    "
+                    >
+                    ✔
+                    </div>
+
+                    </td>
+
+                    <td colspan="7"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.2.6 Paso a Producción
+                    </td>
+
+                    <td>127 días</td>
+                    <td>mar 31-03-26</td>
+                    <td>mié 23-09-26</td>
+
+                    <td colspan="3"></td>
+
+                    <td colspan="6" class="gantt-cell">
+
+                    <div
+                    class="bar orange"
+                    style="
+                    left:5%;
+                    width:90%;
+                    "
+                    >
+                    Paso Producción
+                    </div>
+
+                    </td>
+
+                    <td colspan="2"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.2.7 Marcha Blanca
+                    </td>
+
+                    <td>23 días</td>
+                    <td>jue 24-09-26</td>
+                    <td>lun 26-10-26</td>
+
+                    <td colspan="9"></td>
+
+                    <td colspan="2" class="gantt-cell">
+
+                    <div
+                    class="bar green"
+                    style="
+                    left:5%;
+                    width:70%;
+                    "
+                    >
+                    Marcha Blanca
+                    </div>
+
+                    </td>
+
+                    </tr>
+
+                    <!-- =====================================================
+                    3.3
+                    ===================================================== -->
+
+                    <tr class="level1">
+
+                    <td>
+                    3.3 Registros de movimientos de personal retroactivos (espontáneo)
+                    </td>
+
+                    <td>243 días</td>
+                    <td>mié 10-12-25</td>
+                    <td>vie 13-11-26</td>
+
+                    <td colspan="11" class="gantt-cell">
+
+                    <div
+                    class="bar yellow"
+                    style="
+                    left:3%;
+                    width:95%;
+                    "
+                    >
+                    Movimientos personal retroactivos
+                    </div>
+
+                    </td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.3.1 Levantamiento de Requerimientos
+                    </td>
+
+                    <td>34 días</td>
+                    <td>mié 10-12-25</td>
+                    <td>lun 26-01-26</td>
+
+                    <td colspan="2" class="gantt-cell">
+
+                    <div
+                    class="bar blue"
+                    style="
+                    left:0%;
+                    width:75%;
+                    "
+                    >
+                    34 días
+                    </div>
+
+                    </td>
+
+                    <td colspan="9"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.3.2 Construcción Previred
+                    </td>
+
+                    <td>27 días</td>
+                    <td>jue 09-07-26</td>
+                    <td>vie 14-08-26</td>
+
+                    <td colspan="7"></td>
+
+                    <td colspan="2" class="gantt-cell">
+
+                    <div
+                    class="bar orange"
+                    style="
+                    left:5%;
+                    width:75%;
+                    "
+                    >
+                    Construcción
+                    </div>
+
+                    </td>
+
+                    <td colspan="2"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.3.3 Certificación Previred
+                    </td>
+
+                    <td>27 días</td>
+                    <td>lun 17-08-26</td>
+                    <td>mar 22-09-26</td>
+
+                    <td colspan="8"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar yellow"
+                    style="
+                    left:10%;
+                    width:75%;
+                    "
+                    >
+                    Certificación
+                    </div>
+
+                    </td>
+
+                    <td colspan="2"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.3.4 Generación de Datos de prueba para ISL
+                    </td>
+
+                    <td>2 días</td>
+                    <td>jue 24-09-26</td>
+                    <td>vie 25-09-26</td>
+
+                    <td colspan="9"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar blue"
+                    style="
+                    left:10%;
+                    width:18%;
+                    "
+                    >
+                    ISL
+                    </div>
+
+                    </td>
+
+                    <td></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.3.5 Certificación ISL
+                    </td>
+
+                    <td>3 días</td>
+                    <td>lun 28-09-26</td>
+                    <td>mié 30-09-26</td>
+
+                    <td colspan="9"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar green"
+                    style="
+                    left:35%;
+                    width:20%;
+                    "
+                    >
+                    ✔
+                    </div>
+
+                    </td>
+
+                    <td></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    3.3.6 Paso a Producción
+                    </td>
+
+                    <td>2 días</td>
+                    <td>jue 01-10-26</td>
+                    <td>vie 02-10-26</td>
+
+                    <td colspan="10"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar orange"
+                    style="
+                    left:5%;
+                    width:18%;
+                    "
+                    >
+                    🚀
+                    </div>
+
+                    </td>
+
+                    </tr>
+
+                    <!-- =====================================================
+                    4.3
+                    ===================================================== -->
+
+                    <tr class="level1">
+
+                    <td>
+                    4.3 Notificación antes del término del primer mes de generación de la DNP
+                    </td>
+
+                    <td>137 días</td>
+                    <td>lun 22-12-25</td>
+                    <td>mar 30-06-26</td>
+
+                    <td colspan="7" class="gantt-cell">
+
+                    <div
+                    class="bar blue"
+                    style="
+                    left:5%;
+                    width:90%;
+                    "
+                    >
+                    Notificación DNP
+                    </div>
+
+                    </td>
+
+                    <td colspan="4"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.3.1 Levantamiento de Requerimientos
+                    </td>
+
+                    <td>21 días</td>
+                    <td>lun 22-12-25</td>
+                    <td>lun 19-01-26</td>
+
+                    <td colspan="2" class="gantt-cell">
+
+                    <div
+                    class="bar blue"
+                    style="
+                    left:10%;
+                    width:55%;
+                    "
+                    >
+                    21 días
+                    </div>
+
+                    </td>
+
+                    <td colspan="9"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.3.2 Construcción Previred
+                    </td>
+
+                    <td>15 días</td>
+                    <td>lun 06-04-26</td>
+                    <td>vie 24-04-26</td>
+
+                    <td colspan="4"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar orange"
+                    style="
+                    left:10%;
+                    width:55%;
+                    "
+                    >
+                    Construcción
+                    </div>
+
+                    </td>
+
+                    <td colspan="6"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.3.3 Certificación Previred
+                    </td>
+
+                    <td>12 días</td>
+                    <td>lun 27-04-26</td>
+                    <td>mar 12-05-26</td>
+
+                    <td colspan="5"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar yellow"
+                    style="
+                    left:5%;
+                    width:45%;
+                    "
+                    >
+                    Certificación
+                    </div>
+
+                    </td>
+
+                    <td colspan="5"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.3.4 Certificación ISL
+                    </td>
+
+                    <td>3 días</td>
+                    <td>mié 13-05-26</td>
+                    <td>vie 15-05-26</td>
+
+                    <td colspan="5"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar green"
+                    style="
+                    left:55%;
+                    width:15%;
+                    "
+                    >
+                    ✔
+                    </div>
+
+                    </td>
+
+                    <td colspan="5"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.3.5 Paso a Producción
+                    </td>
+
+                    <td>2 días</td>
+                    <td>lun 18-05-26</td>
+                    <td>mar 19-05-26</td>
+
+                    <td colspan="5"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar orange"
+                    style="
+                    left:72%;
+                    width:15%;
+                    "
+                    >
+                    🚀
+                    </div>
+
+                    </td>
+
+                    <td colspan="5"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.3.6 Marcha Blanca
+                    </td>
+
+                    <td>30 días</td>
+                    <td>mié 20-05-26</td>
+                    <td>mar 30-06-26</td>
+
+                    <td colspan="5"></td>
+
+                    <td colspan="2" class="gantt-cell">
+
+                    <div
+                    class="bar green"
+                    style="
+                    left:5%;
+                    width:80%;
+                    "
+                    >
+                    Marcha Blanca
+                    </div>
+
+                    </td>
+
+                    <td colspan="4"></td>
+
+                    </tr>
+
+                    <!-- =====================================================
+                    4.4
+                    ===================================================== -->
+
+                    <tr class="level1">
+
+                    <td>
+                    4.4 Informe de Deudas pagadas por condonación
+                    </td>
+
+                    <td>101 días</td>
+                    <td>jue 05-02-26</td>
+                    <td>jue 25-06-26</td>
+
+                    <td colspan="6" class="gantt-cell">
+
+                    <div
+                    class="bar yellow"
+                    style="
+                    left:10%;
+                    width:82%;
+                    "
+                    >
+                    Informe Deudas Condonación
+                    </div>
+
+                    </td>
+
+                    <td colspan="5"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.4.1 Levantamiento de Requerimientos
+                    </td>
+
+                    <td>10 días</td>
+                    <td>jue 05-02-26</td>
+                    <td>mié 18-02-26</td>
+
+                    <td></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar blue"
+                    style="
+                    left:10%;
+                    width:40%;
+                    "
+                    >
+                    10 días
+                    </div>
+
+                    </td>
+
+                    <td colspan="9"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.4.2 Construcción Previred
+                    </td>
+
+                    <td>30 días</td>
+                    <td>mié 25-03-26</td>
+                    <td>mar 05-05-26</td>
+
+                    <td colspan="3"></td>
+
+                    <td colspan="2" class="gantt-cell">
+
+                    <div
+                    class="bar orange"
+                    style="
+                    left:5%;
+                    width:75%;
+                    "
+                    >
+                    Construcción
+                    </div>
+
+                    </td>
+
+                    <td colspan="6"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.4.3 Certificación Previred
+                    </td>
+
+                    <td>15 días</td>
+                    <td>mié 06-05-26</td>
+                    <td>mar 26-05-26</td>
+
+                    <td colspan="5"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar yellow"
+                    style="
+                    left:10%;
+                    width:50%;
+                    "
+                    >
+                    Certificación
+                    </div>
+
+                    </td>
+
+                    <td colspan="5"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.4.4 Certificación ISL
+                    </td>
+
+                    <td>5 días</td>
+                    <td>mié 27-05-26</td>
+                    <td>mar 02-06-26</td>
+
+                    <td colspan="5"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar green"
+                    style="
+                    left:62%;
+                    width:20%;
+                    "
+                    >
+                    ✔
+                    </div>
+
+                    </td>
+
+                    <td colspan="5"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.4.5 Paso a Producción
+                    </td>
+
+                    <td>2 días</td>
+                    <td>mié 03-06-26</td>
+                    <td>jue 04-06-26</td>
+
+                    <td colspan="6"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar orange"
+                    style="
+                    left:5%;
+                    width:15%;
+                    "
+                    >
+                    🚀
+                    </div>
+
+                    </td>
+
+                    <td colspan="4"></td>
+
+                    </tr>
+
+                    <tr>
+
+                    <td class="level2">
+                    4.4.6 Marcha Blanca
+                    </td>
+
+                    <td>21 días</td>
+                    <td>vie 05-06-26</td>
+                    <td>jue 25-06-26</td>
+
+                    <td colspan="6"></td>
+
+                    <td class="gantt-cell">
+
+                    <div
+                    class="bar green"
+                    style="
+                    left:25%;
+                    width:65%;
+                    "
+                    >
+                    Marcha Blanca
+                    </div>
+
+                    </td>
+
+                    <td colspan="4"></td>
+
+                    </tr>
+
+                    
+
+                    <!-- PUEDES CONTINUAR PEGANDO EL RESTO DE TU TBODY AQUÍ -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const wrapper =
+        document.getElementById(
+            "roadmapWrapper"
+        );
+
+    const roadmap =
+        document.querySelector(
+            ".roadmap"
+        );
+
+    const todayWrapper =
+        document.getElementById(
+            "todayWrapper"
+        );
+
+    const todayLabel =
+        document.getElementById(
+            "todayLabel"
+        );
+
+    const startDate =
+        new Date(2025,11,1);
+
+    const endDate =
+        new Date(2026,9,31);
+
+    const today =
+        new Date();
+
+    const totalDays =
+        (endDate - startDate) /
+        (1000 * 60 * 60 * 24);
+
+    const elapsedDays =
+        (today - startDate) /
+        (1000 * 60 * 60 * 24);
+
+    let percent =
+        elapsedDays / totalDays;
+
+    percent =
+        Math.max(
+            0,
+            Math.min(1, percent)
+        );
+
+    const fixedColumnsWidth =
+        document.querySelector(".col-task").offsetWidth +
+        document.querySelector(".col-days").offsetWidth +
+        (
+            document.querySelectorAll(".col-date")[0].offsetWidth * 2
+        );
+
+    const timelineWidth =
+        roadmap.scrollWidth -
+        fixedColumnsWidth;
+
+    const position =
+        fixedColumnsWidth +
+        (timelineWidth * percent);
+
+    todayWrapper.style.left =
+        `${position}px`;
+
+    const formatDate =
+        today.toLocaleDateString(
+            "es-ES",
+            {
+                day:'2-digit',
+                month:'short',
+                year:'numeric'
+            }
+        );
+
+    todayLabel.innerHTML =
+        `HOY · ${formatDate}`;
+
+    wrapper.scrollLeft =
+        position -
+        (wrapper.clientWidth / 2);
+
+});
+
+</script>
+
+</body>
+</html>
