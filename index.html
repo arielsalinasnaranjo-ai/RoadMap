@@ -1,1990 +1,2798 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-/>
-
-<title>RoadMap Previred</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-/>
-
-<style>
-
-/* =========================================================
-ROOT
-========================================================= */
-
-:root{
-
-    --bg:#f4f7fb;
-    --card:#ffffff;
-    --border:#e5e7eb;
-    --text:#111827;
-    --muted:#6b7280;
-
-    --blue:#2563eb;
-    --blue-soft:#dbeafe;
-
-    --green:#16a34a;
-    --green-soft:#dcfce7;
-
-    --orange:#ea580c;
-    --orange-soft:#ffedd5;
-
-    --yellow:#ca8a04;
-    --yellow-soft:#fef9c3;
-
-    --shadow:
-        0 10px 25px rgba(0,0,0,.06),
-        0 2px 8px rgba(0,0,0,.04);
-}
-
-/* =========================================================
-GLOBAL
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-
-    font-family:'Inter', sans-serif;
-
-    background:
-        radial-gradient(circle at top left,#dbeafe 0%,transparent 30%),
-        radial-gradient(circle at bottom right,#ede9fe 0%,transparent 30%),
-        var(--bg);
-
-    color:var(--text);
-
-    min-height:100vh;
-}
-
-/* =========================================================
-APP
-========================================================= */
-
-.app{
-    width:100%;
-    padding:20px;
-}
-
-/* =========================================================
-TOPBAR
-========================================================= */
-
-.topbar{
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:20px;
-
-    margin-bottom:20px;
-}
-
-.title-area h1{
-
-    font-size:clamp(24px,4vw,36px);
-    font-weight:800;
-
-    margin-bottom:8px;
-}
-
-.title-area p{
-
-    color:var(--muted);
-    font-size:14px;
-}
-
-.badge{
-
-    background:white;
-
-    border:1px solid var(--border);
-
-    padding:12px 18px;
-
-    border-radius:14px;
-
-    box-shadow:var(--shadow);
-
-    font-size:14px;
-    font-weight:600;
-}
-
-/* =========================================================
-ROADMAP
-========================================================= */
-
-.roadmap-container{
-
-    background:var(--card);
-
-    border-radius:22px;
-
-    box-shadow:var(--shadow);
-
-    overflow:hidden;
-}
-
-.roadmap-wrapper{
-
-    position:relative;
-
-    overflow:auto;
-
-    max-height:calc(100vh - 180px);
-
-    padding-top:70px;
-}
-
-/* =========================================================
-TABLE
-========================================================= */
-
-.roadmap{
-
-    border-collapse:separate;
-    border-spacing:0;
-
-    min-width:1700px;
-    width:max-content;
-}
-
-/* =========================================================
-HEADER
-========================================================= */
-
-.roadmap thead th{
-
-    position:sticky;
-    top:0;
-
-    z-index:50;
-
-    background:
-        linear-gradient(
-            135deg,
-            #1e3a8a,
-            #2563eb
-        );
-
-    color:white;
-
-    padding:18px 14px;
-
-    font-size:13px;
-
-    text-transform:uppercase;
-
-    letter-spacing:.5px;
-
-    white-space:nowrap;
-}
-
-.col-task{
-
-    width:360px;
-    min-width:360px;
-
-    text-align:left !important;
-
-    position:sticky;
-    left:0;
-
-    z-index:60;
-}
-
-.col-days{
-    width:110px;
-    min-width:110px;
-}
-
-.col-date{
-    width:140px;
-    min-width:140px;
-}
-
-/* =========================================================
-BODY
-========================================================= */
-
-tbody tr{
-    transition:.25s ease;
-}
-
-tbody tr:hover{
-    background:#f8fafc;
-}
-
-tbody td{
-
-    padding:14px;
-
-    border-bottom:1px solid #eef2f7;
-
-    font-size:13px;
-
-    height:72px;
-
-    background:white;
-
-    position:relative;
-
-    white-space:nowrap;
-}
-
-/* sticky first column */
-
-tbody td:first-child{
-
-    position:sticky;
-
-    left:0;
-
-    z-index:30;
-
-    background:white;
-
-    box-shadow:
-        4px 0 10px rgba(0,0,0,.03);
-}
-
-/* =========================================================
-LEVELS
-========================================================= */
-
-.level1 td{
-
-    background:
-        linear-gradient(
-            to right,
-            #eff6ff,
-            #ffffff
-        ) !important;
-
-    font-weight:700;
-}
-
-.level2{
-
-    padding-left:35px !important;
-
-    color:#374151;
-}
-
-.level2::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:18px;
-    top:50%;
-
-    transform:translateY(-50%);
-
-    width:8px;
-    height:8px;
-
-    border-radius:50%;
-
-    background:#3b82f6;
-}
-
-/* =========================================================
-GANTT CELL
-========================================================= */
-
-.gantt-cell{
-
-    position:relative;
-
-    overflow:hidden;
-
-    background:
-        repeating-linear-gradient(
-            to right,
-            #f8fafc,
-            #f8fafc 119px,
-            #e5e7eb 120px
-        );
-}
-
-/* =========================================================
-BARS
-========================================================= */
-
-.bar{
-
-    position:absolute;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    height:42px;
-
-    border-radius:14px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:0 16px;
-
-    font-size:12px;
-    font-weight:700;
-
-    color:#111827;
-
-    overflow:hidden;
-    text-overflow:ellipsis;
-
-    cursor:pointer;
-
-    transition:.25s ease;
-
-    box-shadow:
-        0 4px 10px rgba(0,0,0,.08),
-        inset 0 1px 0 rgba(255,255,255,.5);
-}
-
-.bar:hover{
-
-    transform:
-        translateY(-50%)
-        scale(1.03);
-}
-
-/* =========================================================
-COLORS
-========================================================= */
-
-.blue{
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--blue-soft),
-            #bfdbfe
-        );
-
-    border:2px solid var(--blue);
-}
-
-.green{
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--green-soft),
-            #bbf7d0
-        );
-
-    border:2px solid var(--green);
-}
-
-.orange{
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--orange-soft),
-            #fdba74
-        );
-
-    border:2px solid var(--orange);
-}
-
-.yellow{
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--yellow-soft),
-            #fde68a
-        );
-
-    border:2px solid var(--yellow);
-}
-
-/* =========================================================
-TODAY LINE
-========================================================= */
-/*
-.today-wrapper{
-
-    position:absolute;
-
-    top:70px;
-    bottom:0;
-
-    z-index:100;
-
-    pointer-events:none;
-}
-
-.today-line{
-
-    position:absolute;
-
-    top:0;
-    bottom:0;
-
-    width:4px;
-
-    background:
-        linear-gradient(
-            to bottom,
-            #ec4899,
-            #f472b6
-        );
-
-    box-shadow:
-        0 0 0 4px rgba(236,72,153,.12),
-        0 0 20px rgba(236,72,153,.45);
-}
-*/
-.today-wrapper{
-
-    position:absolute;
-
-    top:70px;
-
-    z-index:100;
-
-    pointer-events:none;
-}
-
-.today-line{
-
-    position:absolute;
-
-    top:0;
-
-    height:100%;
-
-    width:4px;
-
-    background:
-        linear-gradient(
-            to bottom,
-            #ec4899,
-            #f472b6
-        );
-
-    box-shadow:
-        0 0 0 4px rgba(236,72,153,.12),
-        0 0 20px rgba(236,72,153,.45);
-}
-.today-label{
-
-    position:absolute;
-
-    top:-55px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    background:
-        linear-gradient(
-            135deg,
-            #db2777,
-            #ec4899
-        );
-
-    color:white;
-
-    padding:10px 18px;
-
-    border-radius:999px;
-
-    font-size:12px;
-    font-weight:700;
-
-    white-space:nowrap;
-
-    z-index:999;
-
-    animation:floatToday 3s ease-in-out infinite;
-}
-
-@keyframes floatToday{
-
-    0%{
-        transform:translateX(-50%) translateY(0);
-    }
-
-    50%{
-        transform:translateX(-50%) translateY(-4px);
-    }
-
-    100%{
-        transform:translateX(-50%) translateY(0);
-    }
-}
-
-/* =========================================================
-SCROLLBAR
-========================================================= */
-
-.roadmap-wrapper::-webkit-scrollbar{
-    height:14px;
-    width:14px;
-}
-
-.roadmap-wrapper::-webkit-scrollbar-thumb{
-
-    background:
-        linear-gradient(
-            to right,
-            #94a3b8,
-            #64748b
-        );
-
-    border-radius:999px;
-}
-
-.roadmap-wrapper::-webkit-scrollbar-track{
-    background:#e2e8f0;
-}
-
-/* =========================================================
-RESPONSIVE
-========================================================= */
-
-@media(max-width:900px){
-
-    .app{
-        padding:10px;
-    }
-
-    .badge{
-        width:100%;
-    }
-
-    .col-task{
-        width:260px;
-        min-width:260px;
-    }
-
-    .col-days{
-        width:90px;
-        min-width:90px;
-    }
-
-    .col-date{
-        width:120px;
-        min-width:120px;
-    }
-
-    tbody td,
-    thead th{
-        padding:10px;
-        font-size:12px;
-    }
-
-    .bar{
-        height:36px;
-        font-size:11px;
-    }
-
-    .today-label{
-        font-size:10px;
-        padding:8px 12px;
-    }
-}
-/* =========================================================
-TITLE + LOGO
-========================================================= */
-
-.title-flex{
-
-    display:flex;
-    align-items:center;
-    gap:14px;
-
-    flex-wrap:wrap;
-}
-
-.isl-logo{
-
-    height:42px;
-    width:auto;
-
-    object-fit:contain;
-
-    display:block;
-}
-
-/* responsive */
-
-@media(max-width:900px){
-
-    .isl-logo{
-
-        height:32px;
-    }
-
-    .title-flex{
-
-        gap:10px;
-    }
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previred Roadmap Gantt Ejecutivo 2025 - 2026</title>
+    
+    <!-- Meta Descriptions and SEO Best Practices -->
+    <meta name="description" content="Gantt ejecutivo altamente interactivo con hitos colapsables para el RoadMap Proyecto Previred 2025 - 2026.">
+    <meta name="author" content="Previred Development Team">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Unified Premium CSS Stylesheet -->
+    <style>
+        /* =========================================================
+           DESIGN SYSTEM & VARIABLES
+           ========================================================= */
+
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            /* Light Mode Palette */
+            --bg-app: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --bg-card-hover: rgba(255, 255, 255, 0.95);
+            --border-color: rgba(226, 232, 240, 0.8);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            
+            /* Brand Accent Colors */
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --primary-light: rgba(59, 130, 246, 0.1);
+            
+            /* Gantt Status Colors */
+            --status-complete: #10b981;
+            --status-complete-bg: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            --status-complete-border: #059669;
+            --status-complete-text: #065f46;
+
+            --status-progress: #f59e0b;
+            --status-progress-bg: linear-gradient(135deg, #fef3c7, #fde68a);
+            --status-progress-border: #d97706;
+            --status-progress-text: #78350f;
+
+            --status-pending: #ef4444;
+            --status-pending-bg: linear-gradient(135deg, #fee2e2, #fca5a5);
+            --status-pending-border: #dc2626;
+            --status-pending-text: #991b1b;
+            
+            /* Shadows & Effects */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.06);
+            --glass-blur: blur(16px);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+
+            /* Gantt dimensions */
+            --col-task-width: 380px;
+            --col-days-width: 110px;
+            --col-date-width: 130px;
+            --col-month-width: 140px;
+            --row-height: 72px;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode Palette */
+            --bg-app: #090d16;
+            --bg-card: rgba(17, 24, 39, 0.7);
+            --bg-card-hover: rgba(24, 34, 54, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            
+            --primary: #60a5fa;
+            --primary-hover: #3b82f6;
+            --primary-light: rgba(96, 165, 250, 0.15);
+
+            /* Dark Mode Status Adjustments (richer contrast) */
+            --status-complete-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.35));
+            --status-complete-border: #10b981;
+            --status-complete-text: #a7f3d0;
+
+            --status-progress-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.35));
+            --status-progress-border: #f59e0b;
+            --status-progress-text: #fde68a;
+
+            --status-pending-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.35));
+            --status-pending-border: #ef4444;
+            --status-pending-text: #fca5a5;
+
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.45);
+        }
+
+        /* =========================================================
+           BASE STYLES
+           ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-app);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.3s ease;
+            line-height: 1.5;
+        }
+
+        .app-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* =========================================================
+           SCROLLBAR STYLES
+           ========================================================= */
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 999px;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+        }
+
+        /* =========================================================
+           HEADER / TOPBAR
+           ========================================================= */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .brand-section {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .brand-section h1 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--text-primary) 30%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-section p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .action-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+            border-color: var(--text-muted);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            border: none;
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+        }
+
+        /* =========================================================
+           STATISTICS DASHBOARD
+           ========================================================= */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            background: var(--bg-card-hover);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 100%;
+        }
+
+        .stat-card.stat-total::before { background: var(--primary); }
+        .stat-card.stat-complete::before { background: var(--status-complete); }
+        .stat-card.stat-progress::before { background: var(--status-progress); }
+        .stat-card.stat-pending::before { background: var(--status-pending); }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .stat-footer {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* =========================================================
+           FILTERS & CONTROLS
+           ========================================================= */
+
+        .control-panel {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow-md);
+        }
+
+        .filter-group-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            min-width: 260px;
+        }
+
+        .search-input-wrapper input {
+            width: 100%;
+            background: var(--bg-app);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 16px 10px 40px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .search-input-wrapper input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            background: var(--bg-card);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            font-size: 14px;
+        }
+
+        .select-filter {
+            background: var(--bg-app);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .select-filter:focus {
+            border-color: var(--primary);
+        }
+
+        .legend-badge-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .legend-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            background: var(--bg-app);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.complete { background-color: var(--status-complete); }
+        .legend-dot.progress { background-color: var(--status-progress); }
+        .legend-dot.pending { background-color: var(--status-pending); }
+
+        /* =========================================================
+           GANTT TABLE & TIMELINE
+           ========================================================= */
+
+        .gantt-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gantt-scroll-container {
+            overflow: auto;
+            position: relative;
+            max-height: calc(100vh - 340px);
+        }
+
+        .gantt-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: max-content;
+            table-layout: fixed;
+        }
+
+        /* --- Sticky Headers --- */
+        .gantt-table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: var(--bg-app);
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 16px 12px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* Top-left sticky columns overlap */
+        .gantt-table thead th.sticky-header-task {
+            left: 0;
+            z-index: 50;
+            text-align: left;
+            background: var(--bg-app);
+            width: var(--col-task-width);
+            min-width: var(--col-task-width);
+            max-width: var(--col-task-width);
+            white-space: normal;
+        }
+
+        .gantt-table thead th.sticky-header-days {
+            left: var(--col-task-width);
+            z-index: 50;
+            width: var(--col-days-width);
+            min-width: var(--col-days-width);
+            max-width: var(--col-days-width);
+        }
+
+        .gantt-table thead th.sticky-header-start {
+            left: calc(var(--col-task-width) + var(--col-days-width));
+            z-index: 50;
+            width: var(--col-date-width);
+            min-width: var(--col-date-width);
+            max-width: var(--col-date-width);
+        }
+
+        .gantt-table thead th.sticky-header-end {
+            left: calc(var(--col-task-width) + var(--col-days-width) + var(--col-date-width));
+            z-index: 50;
+            width: var(--col-date-width);
+            min-width: var(--col-date-width);
+            max-width: var(--col-date-width);
+        }
+
+        /* Month Columns Header styling */
+        .gantt-table thead th.month-col-header {
+            width: var(--col-month-width);
+            min-width: var(--col-month-width);
+            border-left: 1px solid var(--border-color);
+            background: rgba(59, 130, 246, 0.03);
+        }
+
+        /* --- Row & Cell Styling --- */
+        .gantt-table tbody tr {
+            height: var(--row-height);
+            transition: background-color 0.2s ease;
+        }
+
+        .gantt-table tbody tr:hover {
+            background-color: rgba(59, 130, 246, 0.02);
+        }
+
+        .gantt-table tbody td {
+            padding: 12px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        /* Sticky Task Data Columns */
+        .sticky-col-task {
+            position: sticky;
+            left: 0;
+            z-index: 30;
+            background: var(--bg-card);
+            width: var(--col-task-width);
+            min-width: var(--col-task-width);
+            max-width: var(--col-task-width);
+            white-space: normal;
+            font-weight: 600;
+            box-shadow: 4px 0 12px rgba(0, 0, 0, 0.02);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sticky-col-days {
+            position: sticky;
+            left: var(--col-task-width);
+            z-index: 30;
+            background: var(--bg-card);
+            width: var(--col-days-width);
+            min-width: var(--col-days-width);
+            max-width: var(--col-days-width);
+            text-align: center;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sticky-col-start {
+            position: sticky;
+            left: calc(var(--col-task-width) + var(--col-days-width));
+            z-index: 30;
+            background: var(--bg-card);
+            width: var(--col-date-width);
+            min-width: var(--col-date-width);
+            max-width: var(--col-date-width);
+            text-align: center;
+            color: var(--text-muted);
+            font-family: monospace;
+            font-size: 12px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sticky-col-end {
+            position: sticky;
+            left: calc(var(--col-task-width) + var(--col-days-width) + var(--col-date-width));
+            z-index: 30;
+            background: var(--bg-card);
+            width: var(--col-date-width);
+            min-width: var(--col-date-width);
+            max-width: var(--col-date-width);
+            text-align: center;
+            color: var(--text-muted);
+            font-family: monospace;
+            font-size: 12px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        /* Hover Row Highlight Synchronization for Sticky Columns */
+        .gantt-table tbody tr:hover td.sticky-col-task,
+        .gantt-table tbody tr:hover td.sticky-col-days,
+        .gantt-table tbody tr:hover td.sticky-col-start,
+        .gantt-table tbody tr:hover td.sticky-col-end {
+            background-color: var(--bg-card-hover) !important;
+        }
+
+        /* Hierarchical Row Level Styling */
+        .level-1 {
+            font-weight: 800 !important;
+        }
+
+        .level-1 td.sticky-col-task {
+            background: linear-gradient(to right, rgba(59, 130, 246, 0.05), transparent) var(--bg-card) !important;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .level-2 {
+            font-weight: 700 !important;
+        }
+
+        .level-2 td.sticky-col-task {
+            padding-left: 28px !important;
+            color: var(--text-primary);
+        }
+
+        .level-3 td.sticky-col-task {
+            padding-left: 48px !important;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Collapse/Expand Tree Connectors for Subtasks */
+        .level-3 td.sticky-col-task::before {
+            content: '';
+            position: absolute;
+            left: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        /* --- Row Collapsible Transition --- */
+        .hidden-row {
+            display: none !important;
+        }
+
+        /* Expand/Collapse Toggle Button */
+        .toggle-btn {
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-app);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .task-title-flex {
+            display: flex;
+            align-items: center;
+        }
+
+        /* --- Gantt Cell Container & Grid --- */
+        .gantt-cell {
+            background-color: var(--bg-card);
+            background-image: 
+                repeating-linear-gradient(
+                    to right,
+                    transparent,
+                    transparent calc(var(--col-month-width) - 1px),
+                    var(--border-color) calc(var(--col-month-width) - 1px),
+                    var(--border-color) var(--col-month-width)
+                );
+            padding: 0 !important;
+        }
+
+        /* --- Gantt Bars --- */
+        .bar {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 38px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+            overflow: hidden;
+            user-select: none;
+            z-index: 10;
+        }
+
+        .bar:hover {
+            transform: translateY(-50%) scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 20;
+        }
+
+        /* Status themes */
+        .bar.status-complete {
+            background: var(--status-complete-bg);
+            border: 1.5px solid var(--status-complete-border);
+            color: var(--status-complete-text);
+        }
+
+        .bar.status-progress {
+            background: var(--status-progress-bg);
+            border: 1.5px solid var(--status-progress-border);
+            color: var(--status-progress-text);
+        }
+
+        .bar.status-pending {
+            background: var(--status-pending-bg);
+            border: 1.5px solid var(--status-pending-border);
+            color: var(--status-pending-text);
+        }
+
+        /* Bar Inner Glass Progress Fill */
+        .bar-progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.28);
+            backdrop-filter: blur(1px);
+            z-index: 1;
+            border-radius: 9px 0 0 9px;
+            pointer-events: none;
+        }
+
+        [data-theme="dark"] .bar-progress-fill {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .bar-content-wrapper {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .bar-icon {
+            font-size: 12px;
+        }
+
+        /* =========================================================
+           TODAY VERTICAL LINE
+           ========================================================= */
+
+        .today-timeline-wrapper {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            z-index: 25;
+            pointer-events: none;
+            width: 2px;
+            transition: left 0.3s ease;
+        }
+
+        .today-timeline-line {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #ec4899, #8b5cf6);
+            box-shadow: 
+                0 0 10px rgba(236, 72, 153, 0.5),
+                0 0 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .today-timeline-indicator {
+            position: sticky;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #db2777, #ec4899);
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(236, 72, 153, 0.4);
+            z-index: 101;
+        }
+
+        /* =========================================================
+           RICH FLOATING TOOLTIP
+           ========================================================= */
+
+        .custom-tooltip {
+            position: fixed;
+            z-index: 200;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            padding: 14px 16px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(0.9) translateY(10px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 320px;
+        }
+
+        .custom-tooltip.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .tooltip-title {
+            font-size: 14px;
+            font-weight: 800;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .tooltip-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .tooltip-label {
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .tooltip-value {
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        .tooltip-badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .tooltip-badge.complete { background-color: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+        .tooltip-badge.progress { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+        .tooltip-badge.pending { background-color: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; }
+
+        .tooltip-progress-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            height: 6px;
+            border-radius: 3px;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .tooltip-progress-bar {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        /* =========================================================
+           TASK EDITOR DRAWER (SLIDE-OVER)
+           ========================================================= */
+
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .drawer-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            max-width: 460px;
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border-left: 1px solid var(--border-color);
+            z-index: 501;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .drawer-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .drawer-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            transition: var(--transition-smooth);
+        }
+
+        .drawer-close:hover {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .drawer-body {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--bg-app);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            background: var(--bg-card);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .drawer-footer {
+            padding: 20px 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        [data-theme="dark"] .drawer-footer {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .btn-danger {
+            background: var(--status-pending);
+            border: none;
+            color: #ffffff;
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+            transition: var(--transition-smooth);
+            margin-right: auto;
+        }
+
+        .btn-danger:hover {
+            background: var(--status-pending-border);
+            transform: translateY(-2px);
+        }
+
+        /* =========================================================
+           MOBILE / RESPONSIVE WARNING & FIXES
+           ========================================================= */
+
+        @media (max-width: 768px) {
+            .brand-section h1 {
+                font-size: 26px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .control-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group-left {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-input-wrapper {
+                min-width: 100%;
+            }
+        }
+
+        /* =========================================================
+        TITLE + LOGO
+        ========================================================= */
+
+        .title-flex{
+
+            display:flex;
+            align-items:center;
+            gap:14px;
+
+            flex-wrap:wrap;
+        }
+
+        .isl-logo{
+
+            height:42px;
+            width:auto;
+
+            object-fit:contain;
+
+            display:block;
+        }
+
+        /* responsive */
+
+        @media(max-width:900px){
+
+            .isl-logo{
+
+                height:32px;
+            }
+
+            .title-flex{
+
+                gap:10px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="app">
+    <div class="app-container">
 
-    <div class="topbar">
-        
-
-        <div class="title-area">
-            <h1 class="title-flex">
-
-                
-
-                <img
+        <!-- =========================================================
+           TOP BAR & HEADERS
+           ========================================================= -->
+        <header class="topbar">
+            <img
                     src="logo-isl.png"
                     alt=""
                     class="isl-logo"
                 >
-              
+            <div class="brand-section">
+                
+                <h1>RoadMap Proyecto Previred 2025 - 2026</h1>
+                
+                <p>Gantt seguimiento proyecto</p>
+            </div>
+            
+            <div class="action-bar">
+                <button class="btn-secondary" id="btnThemeToggle" title="Alternar tema claro/oscuro">
+                    🌙 Modo Oscuro
+                </button>
+                <button class="btn-secondary" id="btnGoToToday" title="Centrar vista en el día de hoy">
+                    📅 Ir a Hoy
+                </button>
+                <!--
+                <button class="btn-primary" onclick="openAddTaskDrawer()" title="Añadir una nueva tarea o hito">
+                    ➕ Añadir Hito / Tarea
+                </button>
+                -->
+            </div>
+        </header>
 
-                <span>
-                    RoadMap Proyecto Previred 2025 - 2026
-                </span>
+        <!-- =========================================================
+           EXECUTIVE DASHBOARD STATISTICS
+           ========================================================= -->
+        <section class="stats-grid" id="statsDashboard" aria-label="Estadísticas de progreso">
+            
+            <div class="stat-card stat-total">
+                <div class="stat-header">
+                    <span>Tareas Totales</span>
+                    <span>📊</span>
+                </div>
+                <div class="stat-value" id="statTotalCount">0</div>
+                <div class="stat-footer">Hitos planificados</div>
+            </div>
 
-            </h1>
-           
+            <div class="stat-card stat-complete">
+                <div class="stat-header">
+                    <span>Finalizado</span>
+                    <span>✔</span>
+                </div>
+                <div class="stat-value" id="statCompleteCount">0</div>
+                <div class="stat-footer" id="statCompletePct">0% del total</div>
+            </div>
 
-            <p>
-                Seguimiento visual del proyecto
-            </p>
+            <div class="stat-card stat-progress">
+                <div class="stat-header">
+                    <span>En Curso / Próximo</span>
+                    <span>⏳</span>
+                </div>
+                <div class="stat-value" id="statProgressCount">0</div>
+                <div class="stat-footer" id="statProgressPct">0% del total</div>
+            </div>
 
-        </div>
+            <div class="stat-card stat-pending">
+                <div class="stat-header">
+                    <span>Futuro</span>
+                    <span>⚠</span>
+                </div>
+                <div class="stat-value" id="statPendingCount">0</div>
+                <div class="stat-footer" id="statPendingPct">0% del total</div>
+            </div>
 
-        <div class="badge">
-            📅 Estado actualizado
-        </div>
+        </section>
 
-    </div>
+        <!-- =========================================================
+           FILTERS & SEARCH BAR
+           ========================================================= -->
+        <section class="control-panel" aria-label="Buscador y filtros">
+            
+            <div class="filter-group-left">
+                
+                <div class="search-input-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="taskSearchInput" placeholder="Buscar hito o tarea..." aria-label="Buscar tarea">
+                </div>
 
-    <div class="roadmap-container">
+                <select id="statusFilter" class="select-filter" aria-label="Filtrar por estado">
+                    <option value="all">Todos los estados</option>
+                    <option value="complete">Finalizado (✔)</option>
+                    <option value="progress">En curso / Próximo (⏳)</option>
+                    <option value="pending">Futuro (⚠)</option>
+                </select>
 
-        <div
-            class="roadmap-wrapper"
-            id="roadmapWrapper"
-        >
-
-            <div
-                class="today-wrapper"
-                id="todayWrapper"
-            >
-
-                <div class="today-line"></div>
-
-                <div
-                    class="today-label"
-                    id="todayLabel"
-                ></div>
+                <select id="levelFilter" class="select-filter" aria-label="Filtrar por jerarquía">
+                    <option value="all">Todas las jerarquías</option>
+                    <option value="hitos">Hitos Principales (Nivel 1)</option>
+                    <option value="subtasks">Detalles y Subtareas (Nivel 2 y 3)</option>
+                </select>
 
             </div>
 
-            <table class="roadmap">
-
-                <thead>
-
-                    <tr>
-
-                        <th class="col-task">Tarea</th>
-                        <th class="col-days">Duración</th>
-                        <th class="col-date">Inicio</th>
-                        <th class="col-date">Fin</th>
-
-                        <th>Dic 2025</th>
-                        <th>Ene 2026</th>
-                        <th>Feb 2026</th>
-                        <th>Mar 2026</th>
-                        <th>Abr 2026</th>
-                        <th>May 2026</th>
-                        <th>Jun 2026</th>
-                        <th>Jul 2026</th>
-                        <th>Ago 2026</th>
-                        <th>Sep 2026</th>
-                        <th>Oct 2026</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-                    <!-- =====================================================
-                    HITO 3
-                    ===================================================== -->
-
-                    <tr class="level1">
-
-                    <td>
-                    Hito 3 / Funcionalidades
-                    </td>
-
-                    <td>247 días</td>
-                    <td>jue 04-12-25</td>
-                    <td>vie 13-11-26</td>
-
-                    <td colspan="11" class="gantt-cell">
-
-                    <div
-                    class="bar blue"
-                    style="
-                    left:0%;
-                    width:98%;
-                    "
-                    >
-                    Hito 3 / Funcionalidades
-                    </div>
-
-                    </td>
-
-                    </tr>
-
-                    <!-- =====================================================
-                    3.1
-                    ===================================================== -->
-
-                    <tr class="level1">
-
-                    <td>
-                    3.1 Pago parcial de DNP
-                    </td>
-
-                    <td>173 días</td>
-                    <td>mar 16-12-25</td>
-                    <td>jue 13-08-26</td>
-
-                    <td colspan="9" class="gantt-cell">
-
-                    <div
-                    class="bar green"
-                    style="
-                    left:5%;
-                    width:70%;
-                    "
-                    >
-                    Pago parcial de DNP
-                    </div>
-
-                    </td>
-
-                    <td></td>
-                    <td></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.1.1 Levantamiento de Requerimientos
-                    </td>
-
-                    <td>31 días</td>
-                    <td>mar 16-12-25</td>
-                    <td>mar 27-01-26</td>
-
-                    <td colspan="2" class="gantt-cell">
-
-                    <div
-                    class="bar blue"
-                    style="
-                    left:0%;
-                    width:70%;
-                    "
-                    >
-                    31 días
-                    </div>
-
-                    </td>
-
-                    <td colspan="9"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.1.2 Construcción Previred
-                    </td>
-
-                    <td>71 días</td>
-                    <td>mié 28-01-26</td>
-                    <td>mié 06-05-26</td>
-
-                    <td></td>
-
-                    <td colspan="4" class="gantt-cell">
-
-                    <div
-                    class="bar orange"
-                    style="
-                    left:5%;
-                    width:85%;
-                    "
-                    >
-                    Construcción Previred
-                    </div>
-
-                    </td>
-
-                    <td colspan="6"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.1.3 Certificación Previred
-                    </td>
-
-                    <td>34 días</td>
-                    <td>jue 30-04-26</td>
-                    <td>mar 16-06-26</td>
-
-                    <td colspan="4"></td>
-
-                    <td colspan="2" class="gantt-cell">
-
-                    <div
-                    class="bar yellow"
-                    style="
-                    left:10%;
-                    width:70%;
-                    "
-                    >
-                    Certificación Previred
-                    </div>
-
-                    </td>
-
-                    <td colspan="5"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.1.4 Generación de Datos de prueba para ISL
-                    </td>
-
-                    <td>5 días</td>
-                    <td>lun 22-06-26</td>
-                    <td>vie 26-06-26</td>
-
-                    <td colspan="6"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar blue"
-                    style="
-                    left:55%;
-                    width:22%;
-                    "
-                    >
-                    ISL
-                    </div>
-
-                    </td>
-
-                    <td colspan="4"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.1.5 Certificación ISL
-                    </td>
-
-                    <td>2 días</td>
-                    <td>lun 29-06-26</td>
-                    <td>mar 30-06-26</td>
-
-                    <td colspan="6"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar green"
-                    style="
-                    left:72%;
-                    width:24%;
-                    "
-                    title="3.1.5 Certificación ISL"
-                    >
-                    ✔
-                    </div>
-
-                    </td>
-
-                    <td colspan="4"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.1.6 Paso a Producción
-                    </td>
-
-                    <td>1 día</td>
-                    <td>jue 02-07-26</td>
-                    <td>jue 02-07-26</td>
-
-                    <td colspan="7"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar orange"
-                    style="
-                    left:5%;
-                    width:12%;
-                    "
-                    >
-                    🚀
-                    </div>
-
-                    </td>
-
-                    <td colspan="3"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.1.7 Marcha Blanca
-                    </td>
-
-                    <td>30 días</td>
-                    <td>vie 03-07-26</td>
-                    <td>jue 13-08-26</td>
-
-                    <td colspan="7"></td>
-
-                    <td colspan="2" class="gantt-cell">
-
-                    <div
-                    class="bar green"
-                    style="
-                    left:10%;
-                    width:80%;
-                    "
-                    >
-                    Marcha Blanca
-                    </div>
-
-                    </td>
-
-                    <td colspan="2"></td>
-
-                    </tr>
-
-                    <!-- =====================================================
-                    3.2
-                    ===================================================== -->
-
-                    <tr class="level1">
-
-                    <td>
-                    3.2 Pago por subrogación de entidades empleadoras mandantes
-                    </td>
-
-                    <td>233 días</td>
-                    <td>jue 04-12-25</td>
-                    <td>lun 26-10-26</td>
-
-                    <td colspan="11" class="gantt-cell">
-
-                    <div
-                    class="bar blue"
-                    style="
-                    left:0%;
-                    width:92%;
-                    "
-                    >
-                    Pago subrogación entidades empleadoras
-                    </div>
-
-                    </td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.2.1 Levantamiento de Requerimientos
-                    </td>
-
-                    <td>42 días</td>
-                    <td>jue 04-12-25</td>
-                    <td>vie 30-01-26</td>
-
-                    <td colspan="2" class="gantt-cell">
-
-                    <div
-                    class="bar blue"
-                    style="
-                    left:0%;
-                    width:85%;
-                    "
-                    >
-                    42 días
-                    </div>
-
-                    </td>
-
-                    <td colspan="9"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.2.2 Construcción Previred
-                    </td>
-
-                    <td>179 días</td>
-                    <td>mié 14-01-26</td>
-                    <td>lun 21-09-26</td>
-
-                    <td></td>
-
-                    <td colspan="8" class="gantt-cell">
-
-                    <div
-                    class="bar orange"
-                    style="
-                    left:5%;
-                    width:90%;
-                    "
-                    >
-                    Construcción Previred
-                    </div>
-
-                    </td>
-
-                    <td colspan="2"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.2.3 Certificación Previred
-                    </td>
-
-                    <td>160 días</td>
-                    <td>mié 28-01-26</td>
-                    <td>mar 08-09-26</td>
-
-                    <td></td>
-
-                    <td colspan="7" class="gantt-cell">
-
-                    <div
-                    class="bar yellow"
-                    style="
-                    left:15%;
-                    width:85%;
-                    "
-                    >
-                    Certificación Previred
-                    </div>
-
-                    </td>
-
-                    <td colspan="3"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.2.4 Generación de Datos de prueba para ISL
-                    </td>
-
-                    <td>15 días</td>
-                    <td>vie 13-03-26</td>
-                    <td>jue 02-04-26</td>
-
-                    <td colspan="3"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar blue"
-                    style="
-                    left:20%;
-                    width:50%;
-                    "
-                    >
-                    Datos ISL
-                    </div>
-
-                    </td>
-
-                    <td colspan="7"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.2.5 Certificación ISL
-                    </td>
-
-                    <td>6 días</td>
-                    <td>vie 27-03-26</td>
-                    <td>vie 03-04-26</td>
-
-                    <td colspan="3"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar green"
-                    style="
-                    left:55%;
-                    width:25%;
-                    "
-                    >
-                    ✔
-                    </div>
-
-                    </td>
-
-                    <td colspan="7"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.2.6 Paso a Producción
-                    </td>
-
-                    <td>127 días</td>
-                    <td>mar 31-03-26</td>
-                    <td>mié 23-09-26</td>
-
-                    <td colspan="3"></td>
-
-                    <td colspan="6" class="gantt-cell">
-
-                    <div
-                    class="bar orange"
-                    style="
-                    left:5%;
-                    width:90%;
-                    "
-                    >
-                    Paso Producción
-                    </div>
-
-                    </td>
-
-                    <td colspan="2"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.2.7 Marcha Blanca
-                    </td>
-
-                    <td>23 días</td>
-                    <td>jue 24-09-26</td>
-                    <td>lun 26-10-26</td>
-
-                    <td colspan="9"></td>
-
-                    <td colspan="2" class="gantt-cell">
-
-                    <div
-                    class="bar green"
-                    style="
-                    left:5%;
-                    width:70%;
-                    "
-                    >
-                    Marcha Blanca
-                    </div>
-
-                    </td>
-
-                    </tr>
-
-                    <!-- =====================================================
-                    3.3
-                    ===================================================== -->
-
-                    <tr class="level1">
-
-                    <td>
-                    3.3 Registros de movimientos de personal retroactivos (espontáneo)
-                    </td>
-
-                    <td>243 días</td>
-                    <td>mié 10-12-25</td>
-                    <td>vie 13-11-26</td>
-
-                    <td colspan="11" class="gantt-cell">
-
-                    <div
-                    class="bar yellow"
-                    style="
-                    left:3%;
-                    width:95%;
-                    "
-                    >
-                    Movimientos personal retroactivos
-                    </div>
-
-                    </td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.3.1 Levantamiento de Requerimientos
-                    </td>
-
-                    <td>34 días</td>
-                    <td>mié 10-12-25</td>
-                    <td>lun 26-01-26</td>
-
-                    <td colspan="2" class="gantt-cell">
-
-                    <div
-                    class="bar blue"
-                    style="
-                    left:0%;
-                    width:75%;
-                    "
-                    >
-                    34 días
-                    </div>
-
-                    </td>
-
-                    <td colspan="9"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.3.2 Construcción Previred
-                    </td>
-
-                    <td>27 días</td>
-                    <td>jue 09-07-26</td>
-                    <td>vie 14-08-26</td>
-
-                    <td colspan="7"></td>
-
-                    <td colspan="2" class="gantt-cell">
-
-                    <div
-                    class="bar orange"
-                    style="
-                    left:5%;
-                    width:75%;
-                    "
-                    >
-                    Construcción
-                    </div>
-
-                    </td>
-
-                    <td colspan="2"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.3.3 Certificación Previred
-                    </td>
-
-                    <td>27 días</td>
-                    <td>lun 17-08-26</td>
-                    <td>mar 22-09-26</td>
-
-                    <td colspan="8"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar yellow"
-                    style="
-                    left:10%;
-                    width:75%;
-                    "
-                    >
-                    Certificación
-                    </div>
-
-                    </td>
-
-                    <td colspan="2"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.3.4 Generación de Datos de prueba para ISL
-                    </td>
-
-                    <td>2 días</td>
-                    <td>jue 24-09-26</td>
-                    <td>vie 25-09-26</td>
-
-                    <td colspan="9"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar blue"
-                    style="
-                    left:10%;
-                    width:18%;
-                    "
-                    >
-                    ISL
-                    </div>
-
-                    </td>
-
-                    <td></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.3.5 Certificación ISL
-                    </td>
-
-                    <td>3 días</td>
-                    <td>lun 28-09-26</td>
-                    <td>mié 30-09-26</td>
-
-                    <td colspan="9"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar green"
-                    style="
-                    left:35%;
-                    width:20%;
-                    "
-                    >
-                    ✔
-                    </div>
-
-                    </td>
-
-                    <td></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    3.3.6 Paso a Producción
-                    </td>
-
-                    <td>2 días</td>
-                    <td>jue 01-10-26</td>
-                    <td>vie 02-10-26</td>
-
-                    <td colspan="10"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar orange"
-                    style="
-                    left:5%;
-                    width:18%;
-                    "
-                    >
-                    🚀
-                    </div>
-
-                    </td>
-
-                    </tr>
-
-                    <!-- =====================================================
-                    4.3
-                    ===================================================== -->
-
-                    <tr class="level1">
-
-                    <td>
-                    4.3 Notificación antes del término del primer mes de generación de la DNP
-                    </td>
-
-                    <td>137 días</td>
-                    <td>lun 22-12-25</td>
-                    <td>mar 30-06-26</td>
-
-                    <td colspan="7" class="gantt-cell">
-
-                    <div
-                    class="bar blue"
-                    style="
-                    left:5%;
-                    width:90%;
-                    "
-                    >
-                    Notificación DNP
-                    </div>
-
-                    </td>
-
-                    <td colspan="4"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.3.1 Levantamiento de Requerimientos
-                    </td>
-
-                    <td>21 días</td>
-                    <td>lun 22-12-25</td>
-                    <td>lun 19-01-26</td>
-
-                    <td colspan="2" class="gantt-cell">
-
-                    <div
-                    class="bar blue"
-                    style="
-                    left:10%;
-                    width:55%;
-                    "
-                    >
-                    21 días
-                    </div>
-
-                    </td>
-
-                    <td colspan="9"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.3.2 Construcción Previred
-                    </td>
-
-                    <td>15 días</td>
-                    <td>lun 06-04-26</td>
-                    <td>vie 24-04-26</td>
-
-                    <td colspan="4"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar orange"
-                    style="
-                    left:10%;
-                    width:55%;
-                    "
-                    >
-                    Construcción
-                    </div>
-
-                    </td>
-
-                    <td colspan="6"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.3.3 Certificación Previred
-                    </td>
-
-                    <td>12 días</td>
-                    <td>lun 27-04-26</td>
-                    <td>mar 12-05-26</td>
-
-                    <td colspan="5"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar yellow"
-                    style="
-                    left:5%;
-                    width:45%;
-                    "
-                    >
-                    Certificación
-                    </div>
-
-                    </td>
-
-                    <td colspan="5"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.3.4 Certificación ISL
-                    </td>
-
-                    <td>3 días</td>
-                    <td>mié 13-05-26</td>
-                    <td>vie 15-05-26</td>
-
-                    <td colspan="5"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar green"
-                    style="
-                    left:55%;
-                    width:15%;
-                    "
-                    >
-                    ✔
-                    </div>
-
-                    </td>
-
-                    <td colspan="5"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.3.5 Paso a Producción
-                    </td>
-
-                    <td>2 días</td>
-                    <td>lun 18-05-26</td>
-                    <td>mar 19-05-26</td>
-
-                    <td colspan="5"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar orange"
-                    style="
-                    left:72%;
-                    width:15%;
-                    "
-                    >
-                    🚀
-                    </div>
-
-                    </td>
-
-                    <td colspan="5"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.3.6 Marcha Blanca
-                    </td>
-
-                    <td>30 días</td>
-                    <td>mié 20-05-26</td>
-                    <td>mar 30-06-26</td>
-
-                    <td colspan="5"></td>
-
-                    <td colspan="2" class="gantt-cell">
-
-                    <div
-                    class="bar green"
-                    style="
-                    left:5%;
-                    width:80%;
-                    "
-                    >
-                    Marcha Blanca
-                    </div>
-
-                    </td>
-
-                    <td colspan="4"></td>
-
-                    </tr>
-
-                    <!-- =====================================================
-                    4.4
-                    ===================================================== -->
-
-                    <tr class="level1">
-
-                    <td>
-                    4.4 Informe de Deudas pagadas por condonación
-                    </td>
-
-                    <td>101 días</td>
-                    <td>jue 05-02-26</td>
-                    <td>jue 25-06-26</td>
-
-                    <td colspan="6" class="gantt-cell">
-
-                    <div
-                    class="bar yellow"
-                    style="
-                    left:10%;
-                    width:82%;
-                    "
-                    >
-                    Informe Deudas Condonación
-                    </div>
-
-                    </td>
-
-                    <td colspan="5"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.4.1 Levantamiento de Requerimientos
-                    </td>
-
-                    <td>10 días</td>
-                    <td>jue 05-02-26</td>
-                    <td>mié 18-02-26</td>
-
-                    <td></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar blue"
-                    style="
-                    left:10%;
-                    width:40%;
-                    "
-                    >
-                    10 días
-                    </div>
-
-                    </td>
-
-                    <td colspan="9"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.4.2 Construcción Previred
-                    </td>
-
-                    <td>30 días</td>
-                    <td>mié 25-03-26</td>
-                    <td>mar 05-05-26</td>
-
-                    <td colspan="3"></td>
-
-                    <td colspan="2" class="gantt-cell">
-
-                    <div
-                    class="bar orange"
-                    style="
-                    left:5%;
-                    width:75%;
-                    "
-                    >
-                    Construcción
-                    </div>
-
-                    </td>
-
-                    <td colspan="6"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.4.3 Certificación Previred
-                    </td>
-
-                    <td>15 días</td>
-                    <td>mié 06-05-26</td>
-                    <td>mar 26-05-26</td>
-
-                    <td colspan="5"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar yellow"
-                    style="
-                    left:10%;
-                    width:50%;
-                    "
-                    >
-                    Certificación
-                    </div>
-
-                    </td>
-
-                    <td colspan="5"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.4.4 Certificación ISL
-                    </td>
-
-                    <td>5 días</td>
-                    <td>mié 27-05-26</td>
-                    <td>mar 02-06-26</td>
-
-                    <td colspan="5"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar green"
-                    style="
-                    left:62%;
-                    width:20%;
-                    "
-                    >
-                    ✔
-                    </div>
-
-                    </td>
-
-                    <td colspan="5"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.4.5 Paso a Producción
-                    </td>
-
-                    <td>2 días</td>
-                    <td>mié 03-06-26</td>
-                    <td>jue 04-06-26</td>
-
-                    <td colspan="6"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar orange"
-                    style="
-                    left:5%;
-                    width:15%;
-                    "
-                    >
-                    🚀
-                    </div>
-
-                    </td>
-
-                    <td colspan="4"></td>
-
-                    </tr>
-
-                    <tr>
-
-                    <td class="level2">
-                    4.4.6 Marcha Blanca
-                    </td>
-
-                    <td>21 días</td>
-                    <td>vie 05-06-26</td>
-                    <td>jue 25-06-26</td>
-
-                    <td colspan="6"></td>
-
-                    <td class="gantt-cell">
-
-                    <div
-                    class="bar green"
-                    style="
-                    left:25%;
-                    width:65%;
-                    "
-                    >
-                    Marcha Blanca
-                    </div>
-
-                    </td>
-
-                    <td colspan="4"></td>
-
-                    </tr>
-
+            <div class="legend-badge-container">
+                <div class="legend-badge">
+                    <span class="legend-dot complete"></span>
+                    Finalizado
+                </div>
+                <div class="legend-badge">
+                    <span class="legend-dot progress"></span>
+                    En curso / Próximo
+                </div>
+                <div class="legend-badge">
+                    <span class="legend-dot pending"></span>
+                    Futuro
+                </div>
+            </div>
+
+        </section>
+
+        <!-- =========================================================
+           GANTT TIMELINE WORKSPACE
+           ========================================================= -->
+        <main class="gantt-card" aria-label="Gráfico de Gantt">
+            
+            <div class="gantt-scroll-container" id="ganttScrollContainer">
+                
+                <!-- Floating vertical "Today" indicator -->
+                <div class="today-timeline-wrapper" id="todayTimelineWrapper" style="display: none;">
+                    <div class="today-timeline-indicator" id="todayTimelineLabel">HOY</div>
+                    <div class="today-timeline-line"></div>
+                </div>
+
+                <table class="gantt-table" id="ganttTable">
                     
+                    <thead>
+                        <tr id="ganttTheadRow">
+                            <!-- Dynamic monthly headers will be inserted here by JavaScript -->
+                        </tr>
+                    </thead>
+                    
+                    <tbody id="ganttTbody">
+                        <!-- Dynamic collapsible rows will be inserted here by JavaScript -->
+                    </tbody>
 
-                    <!-- PUEDES CONTINUAR PEGANDO EL RESTO DE TU TBODY AQUÍ -->
+                </table>
 
-                </tbody>
+            </div>
 
-            </table>
-
-        </div>
+        </main>
 
     </div>
 
-</div>
+    <!-- =========================================================
+       RICH FLOATING TOOLTIP
+       ========================================================= -->
+    <div class="custom-tooltip" id="ganttTooltip" role="tooltip" aria-hidden="true"></div>
 
-<script>
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const wrapper =
-        document.getElementById(
-            "roadmapWrapper"
-        );
-
-    const roadmap =
-        document.querySelector(
-            ".roadmap"
-        );
-
-    const todayWrapper =
-        document.getElementById(
-            "todayWrapper"
-        );
-
-    const todayLabel =
-        document.getElementById(
-            "todayLabel"
-        );
-
-    const startDate =
-        new Date(2025,11,1);
-
-    const endDate =
-        new Date(2026,9,31);
-
-    const today =
-        new Date();
-
-    const totalDays =
-        (endDate - startDate) /
-        (1000 * 60 * 60 * 24);
-
-    const elapsedDays =
-        (today - startDate) /
-        (1000 * 60 * 60 * 24);
-
-    let percent =
-        elapsedDays / totalDays;
-
-    percent =
-        Math.max(
-            0,
-            Math.min(1, percent)
-        );
-
-    const fixedColumnsWidth =
-        document.querySelector(".col-task").offsetWidth +
-        document.querySelector(".col-days").offsetWidth +
-        (
-            document.querySelectorAll(".col-date")[0].offsetWidth * 2
-        );
-
-    const timelineWidth =
-        roadmap.scrollWidth -
-        fixedColumnsWidth;
-
-    const position =
-        fixedColumnsWidth +
-        (timelineWidth * percent);
-
-    todayWrapper.style.left = `${position}px`;
-
-    // altura completa de la tabla
-    todayWrapper.style.height =
-        `${roadmap.offsetHeight}px`;
-
-    //todayWrapper.style.left =
-    //   `${position}px`;
+    <!-- =========================================================
+       SLIDE-OVER TASK EDITOR / CRUD FORM
+       ========================================================= -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+    
+    <aside class="drawer" id="taskDrawer" aria-labelledby="drawerTitle" aria-hidden="true" role="dialog">
         
+        <div class="drawer-header">
+            <h2 class="drawer-title" id="drawerTitle">Editar Hito / Tarea</h2>
+            <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar modal">&times;</button>
+        </div>
 
-    const formatDate =
-        today.toLocaleDateString(
-            "es-ES",
+        <form id="taskForm">
+            <div class="drawer-body">
+                
+                <!-- Hidden Task ID -->
+                <input type="hidden" id="taskIdField">
+
+                <!-- Task Name -->
+                <div class="form-group">
+                    <label for="taskNameField" class="form-label">Nombre del Hito o Tarea *</label>
+                    <input type="text" id="taskNameField" class="form-control" placeholder="Ej. Pago parcial de DNP..." required>
+                </div>
+
+                <!-- Hierarchical Level -->
+                <div class="form-group">
+                    <label for="taskLevelField" class="form-label">Nivel de Jerarquía</label>
+                    <select id="taskLevelField" class="form-control">
+                        <option value="1">Hito Principal (Nivel 1)</option>
+                        <option value="2">Sub-Hito / Proceso (Nivel 2)</option>
+                        <option value="3">Subtarea de Detalle (Nivel 3)</option>
+                    </select>
+                </div>
+
+                <!-- Date Range -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="taskStartField" class="form-label">Fecha Inicio *</label>
+                        <input type="date" id="taskStartField" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskEndField" class="form-label">Fecha Fin *</label>
+                        <input type="date" id="taskEndField" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Group Code (for collapsing) -->
+                <div class="form-group">
+                    <label for="taskGroupField" class="form-label">Grupo Relacionado (Código Colapsable)</label>
+                    <input type="text" id="taskGroupField" class="form-control" placeholder="Ej. hito3" value="hito3">
+                    <small style="color: var(--text-muted); font-size: 11px;">Mantiene unidas las subtareas asociadas al mismo hito principal colapsable.</small>
+                </div>
+
+            </div>
+
+            <div class="drawer-footer">
+                <button type="button" class="btn-danger" id="btnDeleteTask" onclick="handleDeleteTask()" style="display: none;">
+                    🗑️ Eliminar
+                </button>
+                <button type="button" class="btn-secondary" onclick="closeDrawer()">
+                    Cancelar
+                </button>
+                <button type="submit" class="btn-primary">
+                    💾 Guardar Cambios
+                </button>
+            </div>
+        </form>
+
+    </aside>
+
+    <!-- Core Dynamic Gantt Script -->
+    <script>
+        // =========================================================
+        // DEFAULT DATASET (Previred Project 2025 - 2026)
+        // =========================================================
+
+        const DEFAULT_TASKS = [
+            // --- HITO 3 ---
             {
-                day:'2-digit',
-                month:'short',
-                year:'numeric'
+                id: "t1",
+                name: "Hito 3 / Funcionalidades",
+                level: 1,
+                start: "2025-12-04",
+                end: "2026-11-13",
+                group: "hito3"
+            },
+            // Sub-milestone 3.1
+            {
+                id: "t2",
+                name: "3.1. Pago parcial de DNP",
+                level: 2,
+                start: "2025-12-16",
+                end: "2026-08-13",
+                group: "hito3"
+            },
+            {
+                id: "t3",
+                name: "3.1.1. Levantamiento de Requerimientos",
+                level: 3,
+                start: "2025-12-16",
+                end: "2026-01-27",
+                group: "hito3"
+            },
+            {
+                id: "t4",
+                name: "3.1.2. Construcción Previred",
+                level: 3,
+                start: "2026-01-28",
+                end: "2026-05-06",
+                group: "hito3"
+            },
+            {
+                id: "t5",
+                name: "3.1.3. Certificación Previred",
+                level: 3,
+                start: "2026-04-30",
+                end: "2026-06-16",
+                group: "hito3"
+            },
+            {
+                id: "t6",
+                name: "3.1.4. Generación de Datos de prueba para ISL",
+                level: 3,
+                start: "2026-06-22",
+                end: "2026-06-26",
+                group: "hito3"
+            },
+            {
+                id: "t7",
+                name: "3.1.5. Certificación ISL",
+                level: 3,
+                start: "2026-06-29",
+                end: "2026-06-30",
+                group: "hito3"
+            },
+            {
+                id: "t8",
+                name: "3.1.6. Paso a Producción",
+                level: 3,
+                start: "2026-07-02",
+                end: "2026-07-02",
+                group: "hito3"
+            },
+            {
+                id: "t9",
+                name: "3.1.7. Marcha Blanca",
+                level: 3,
+                start: "2026-07-03",
+                end: "2026-08-13",
+                group: "hito3"
+            },
+            // Sub-milestone 3.2
+            {
+                id: "t10",
+                name: "3.2. Pago por subrogación de entidades empleadoras mandantes",
+                level: 2,
+                start: "2025-12-04",
+                end: "2026-10-26",
+                group: "hito3"
+            },
+            {
+                id: "t11",
+                name: "3.2.1. Levantamiento de Requerimientos",
+                level: 3,
+                start: "2025-12-04",
+                end: "2026-01-30",
+                group: "hito3"
+            },
+            {
+                id: "t12",
+                name: "3.2.2. Construcción Previred",
+                level: 3,
+                start: "2026-01-14",
+                end: "2026-09-21",
+                group: "hito3"
+            },
+            {
+                id: "t13",
+                name: "3.2.3. Certificación Previred",
+                level: 3,
+                start: "2026-01-28",
+                end: "2026-09-08",
+                group: "hito3"
+            },
+            {
+                id: "t14",
+                name: "3.2.4. Generación de Datos de prueba para ISL",
+                level: 3,
+                start: "2026-03-13",
+                end: "2026-04-02",
+                group: "hito3"
+            },
+            {
+                id: "t15",
+                name: "3.2.5. Certificación ISL",
+                level: 3,
+                start: "2026-03-27",
+                end: "2026-04-03",
+                group: "hito3"
+            },
+            {
+                id: "t16",
+                name: "3.2.6. Paso a Producción",
+                level: 3,
+                start: "2026-03-31",
+                end: "2026-09-23",
+                group: "hito3"
+            },
+            {
+                id: "t17",
+                name: "3.2.7. Marcha Blanca",
+                level: 3,
+                start: "2026-09-24",
+                end: "2026-10-26",
+                group: "hito3"
+            },
+            // Sub-milestone 3.3
+            {
+                id: "t18",
+                name: "3.3. Registros de movimientos de personal retroactivos (espontáneo)",
+                level: 2,
+                start: "2025-12-10",
+                end: "2026-11-13",
+                group: "hito3"
+            },
+            {
+                id: "t19",
+                name: "3.3.1. Levantamiento de Requerimientos",
+                level: 3,
+                start: "2025-12-10",
+                end: "2026-01-26",
+                group: "hito3"
+            },
+            {
+                id: "t20",
+                name: "3.3.2. Construcción Previred",
+                level: 3,
+                start: "2026-07-09",
+                end: "2026-08-14",
+                group: "hito3"
+            },
+            {
+                id: "t21",
+                name: "3.3.3. Certificación Previred",
+                level: 3,
+                start: "2026-08-17",
+                end: "2026-09-22",
+                group: "hito3"
+            },
+            {
+                id: "t22",
+                name: "3.3.4. Generación de Datos de prueba para ISL",
+                level: 3,
+                start: "2026-09-24",
+                end: "2026-09-25",
+                group: "hito3"
+            },
+            {
+                id: "t23",
+                name: "3.3.5. Certificación ISL",
+                level: 3,
+                start: "2026-09-28",
+                end: "2026-09-30",
+                group: "hito3"
+            },
+            {
+                id: "t24",
+                name: "3.3.6. Paso a Producción",
+                level: 3,
+                start: "2026-10-01",
+                end: "2026-10-02",
+                group: "hito3"
+            },
+            {
+                id: "t25",
+                name: "3.3.7. Marcha Blanca",
+                level: 3,
+                start: "2026-10-05",
+                end: "2026-11-13",
+                group: "hito3"
+            },
+            // --- HITO 4 / OTRAS OBLIGACIONES E INFORMES ---
+            {
+                id: "t4_1",
+                name: "Hito 4 / Otras Obligaciones e Informes",
+                level: 1,
+                start: "2026-03-02",
+                end: "2026-12-11",
+                group: "hito4"
+            },
+            // 4.1
+            {
+                id: "t4_2",
+                name: "4.1. Información de Afiliación",
+                level: 2,
+                start: "2026-03-02",
+                end: "2026-07-15",
+                group: "hito4"
+            },
+            {
+                id: "t4_3",
+                name: "4.1.1. Levantamiento de Requerimientos",
+                level: 3,
+                start: "2026-03-02",
+                end: "2026-04-10",
+                group: "hito4"
+            },
+            {
+                id: "t4_4",
+                name: "4.1.2. Construcción Previred",
+                level: 3,
+                start: "2026-04-13",
+                end: "2026-05-22",
+                group: "hito4"
+            },
+            {
+                id: "t4_5",
+                name: "4.1.3. Certificación Previred",
+                level: 3,
+                start: "2026-05-25",
+                end: "2026-06-19",
+                group: "hito4"
+            },
+            {
+                id: "t4_6",
+                name: "4.1.4. Certificación ISL",
+                level: 3,
+                start: "2026-06-22",
+                end: "2026-06-30",
+                group: "hito4"
+            },
+            {
+                id: "t4_7",
+                name: "4.1.5. Paso a Producción",
+                level: 3,
+                start: "2026-07-01",
+                end: "2026-07-02",
+                group: "hito4"
+            },
+            {
+                id: "t4_8",
+                name: "4.1.6. Marcha Blanca",
+                level: 3,
+                start: "2026-07-03",
+                end: "2026-07-15",
+                group: "hito4"
+            },
+            // 4.2
+            {
+                id: "t4_9",
+                name: "4.2. Baja Masiva de Afiliados",
+                level: 2,
+                start: "2026-04-01",
+                end: "2026-09-10",
+                group: "hito4"
+            },
+            {
+                id: "t4_10",
+                name: "4.2.1. Levantamiento de Requerimientos",
+                level: 3,
+                start: "2026-04-01",
+                end: "2026-04-30",
+                group: "hito4"
+            },
+            {
+                id: "t4_11",
+                name: "4.2.2. Construcción Previred",
+                level: 3,
+                start: "2026-05-01",
+                end: "2026-06-15",
+                group: "hito4"
+            },
+            {
+                id: "t4_12",
+                name: "4.2.3. Generación de Datos de prueba para ISL",
+                level: 3,
+                start: "2026-06-16",
+                end: "2026-06-30",
+                group: "hito4"
+            },
+            {
+                id: "t4_13",
+                name: "4.2.4. Certificación Previred",
+                level: 3,
+                start: "2026-07-01",
+                end: "2026-07-31",
+                group: "hito4"
+            },
+            {
+                id: "t4_14",
+                name: "4.2.5. Certificación ISL",
+                level: 3,
+                start: "2026-08-03",
+                end: "2026-08-14",
+                group: "hito4"
+            },
+            {
+                id: "t4_15",
+                name: "4.2.6. Paso a Producción",
+                level: 3,
+                start: "2026-08-17",
+                end: "2026-08-18",
+                group: "hito4"
+            },
+            {
+                id: "t4_16",
+                name: "4.2.7. Marcha Blanca",
+                level: 3,
+                start: "2026-08-19",
+                end: "2026-09-10",
+                group: "hito4"
+            },
+            // 4.3
+            {
+                id: "t4_17",
+                name: "4.3. Notificaciones Electrónicas",
+                level: 2,
+                start: "2026-05-04",
+                end: "2026-09-30",
+                group: "hito4"
+            },
+            {
+                id: "t4_18",
+                name: "4.3.1. Levantamiento de Requerimientos",
+                level: 3,
+                start: "2026-05-04",
+                end: "2026-06-12",
+                group: "hito4"
+            },
+            {
+                id: "t4_19",
+                name: "4.3.2. Construcción Previred",
+                level: 3,
+                start: "2026-06-15",
+                end: "2026-08-07",
+                group: "hito4"
+            },
+            {
+                id: "t4_20",
+                name: "4.3.3. Certificación Previred",
+                level: 3,
+                start: "2026-08-10",
+                end: "2026-09-04",
+                group: "hito4"
+            },
+            {
+                id: "t4_21",
+                name: "4.3.4. Certificación ISL",
+                level: 3,
+                start: "2026-09-07",
+                end: "2026-09-18",
+                group: "hito4"
+            },
+            {
+                id: "t4_22",
+                name: "4.3.5. Paso a Producción",
+                level: 3,
+                start: "2026-09-21",
+                end: "2026-09-22",
+                group: "hito4"
+            },
+            {
+                id: "t4_23",
+                name: "4.3.6. Marcha Blanca",
+                level: 3,
+                start: "2026-09-23",
+                end: "2026-09-30",
+                group: "hito4"
+            },
+            // 4.4
+            {
+                id: "t4_24",
+                name: "4.4. Informes de Recaudación",
+                level: 2,
+                start: "2026-06-01",
+                end: "2026-10-15",
+                group: "hito4"
+            },
+            {
+                id: "t4_25",
+                name: "4.4.1. Levantamiento de Requerimientos",
+                level: 3,
+                start: "2026-06-01",
+                end: "2026-07-10",
+                group: "hito4"
+            },
+            {
+                id: "t4_26",
+                name: "4.4.2. Construcción Previred",
+                level: 3,
+                start: "2026-07-13",
+                end: "2026-08-28",
+                group: "hito4"
+            },
+            {
+                id: "t4_27",
+                name: "4.4.3. Certificación Previred",
+                level: 3,
+                start: "2026-08-31",
+                end: "2026-09-25",
+                group: "hito4"
+            },
+            {
+                id: "t4_28",
+                name: "4.4.4. Certificación ISL",
+                level: 3,
+                start: "2026-09-28",
+                end: "2026-10-09",
+                group: "hito4"
+            },
+            {
+                id: "t4_29",
+                name: "4.4.5. Paso a Producción",
+                level: 3,
+                start: "2026-10-12",
+                end: "2026-10-13",
+                group: "hito4"
+            },
+            {
+                id: "t4_30",
+                name: "4.4.6. Marcha Blanca",
+                level: 3,
+                start: "2026-10-14",
+                end: "2026-10-15",
+                group: "hito4"
+            },
+            // 4.5
+            {
+                id: "t4_31",
+                name: "4.5. Reportes de Gestión",
+                level: 2,
+                start: "2026-07-01",
+                end: "2026-11-10",
+                group: "hito4"
+            },
+            {
+                id: "t4_32",
+                name: "4.5.1. Levantamiento de Requerimientos",
+                level: 3,
+                start: "2026-07-01",
+                end: "2026-08-07",
+                group: "hito4"
+            },
+            {
+                id: "t4_33",
+                name: "4.5.2. Construcción Previred",
+                level: 3,
+                start: "2026-08-10",
+                end: "2026-09-25",
+                group: "hito4"
+            },
+            {
+                id: "t4_34",
+                name: "4.5.3. Certificación Previred",
+                level: 3,
+                start: "2026-09-28",
+                end: "2026-10-23",
+                group: "hito4"
+            },
+            {
+                id: "t4_35",
+                name: "4.5.4. Certificación ISL",
+                level: 3,
+                start: "2026-10-26",
+                end: "2026-11-04",
+                group: "hito4"
+            },
+            {
+                id: "t4_36",
+                name: "4.5.5. Paso a Producción",
+                level: 3,
+                start: "2026-11-05",
+                end: "2026-11-06",
+                group: "hito4"
+            },
+            {
+                id: "t4_37",
+                name: "4.5.6. Marcha Blanca",
+                level: 3,
+                start: "2026-11-09",
+                end: "2026-11-10",
+                group: "hito4"
+            },
+            // 4.6
+            {
+                id: "t4_38",
+                name: "4.6. Certificación de Procesos",
+                level: 2,
+                start: "2026-08-03",
+                end: "2026-11-30",
+                group: "hito4"
+            },
+            {
+                id: "t4_39",
+                name: "4.6.1. Levantamiento de Requerimientos",
+                level: 3,
+                start: "2026-08-03",
+                end: "2026-09-04",
+                group: "hito4"
+            },
+            {
+                id: "t4_40",
+                name: "4.6.2. Construcción Previred",
+                level: 3,
+                start: "2026-09-07",
+                end: "2026-10-16",
+                group: "hito4"
+            },
+            {
+                id: "t4_41",
+                name: "4.6.3. Certificación Previred",
+                level: 3,
+                start: "2026-10-19",
+                end: "2026-11-13",
+                group: "hito4"
+            },
+            {
+                id: "t4_42",
+                name: "4.6.4. Certificación ISL",
+                level: 3,
+                start: "2026-11-16",
+                end: "2026-11-25",
+                group: "hito4"
+            },
+            {
+                id: "t4_43",
+                name: "4.6.5. Paso a Producción",
+                level: 3,
+                start: "2026-11-26",
+                end: "2026-11-27",
+                group: "hito4"
+            },
+            {
+                id: "t4_44",
+                name: "4.6.6. Marcha Blanca",
+                level: 3,
+                start: "2026-11-28",
+                end: "2026-11-30",
+                group: "hito4"
+            },
+            // 4.7
+            {
+                id: "t4_45",
+                name: "4.7. Certificación Especial",
+                level: 2,
+                start: "2026-09-01",
+                end: "2026-12-05",
+                group: "hito4"
+            },
+            {
+                id: "t4_46",
+                name: "4.7.1. Levantamiento de Requerimientos",
+                level: 3,
+                start: "2026-09-01",
+                end: "2026-09-25",
+                group: "hito4"
+            },
+            {
+                id: "t4_47",
+                name: "4.7.2. Construcción Previred",
+                level: 3,
+                start: "2026-09-28",
+                end: "2026-10-30",
+                group: "hito4"
+            },
+            {
+                id: "t4_48",
+                name: "4.7.3. Certificación Previred",
+                level: 3,
+                start: "2026-11-02",
+                end: "2026-11-20",
+                group: "hito4"
+            },
+            {
+                id: "t4_49",
+                name: "4.7.4. Certificación ISL",
+                level: 3,
+                start: "2026-11-23",
+                end: "2026-11-27",
+                group: "hito4"
+            },
+            {
+                id: "t4_50",
+                name: "4.7.5. Paso a Producción",
+                level: 3,
+                start: "2026-11-30",
+                end: "2026-12-01",
+                group: "hito4"
+            },
+            {
+                id: "t4_51",
+                name: "4.7.6. Marcha Blanca",
+                level: 3,
+                start: "2026-12-02",
+                end: "2026-12-05",
+                group: "hito4"
+            },
+            // 4.8
+            {
+                id: "t4_52",
+                name: "4.8. Certificaciones Finales",
+                level: 2,
+                start: "2026-09-15",
+                end: "2026-12-11",
+                group: "hito4"
+            },
+            {
+                id: "t4_53",
+                name: "4.8.1. Levantamiento de Requerimientos",
+                level: 3,
+                start: "2026-09-15",
+                end: "2026-10-09",
+                group: "hito4"
+            },
+            {
+                id: "t4_54",
+                name: "4.8.2. Construcción Previred",
+                level: 3,
+                start: "2026-10-12",
+                end: "2026-11-13",
+                group: "hito4"
+            },
+            {
+                id: "t4_55",
+                name: "4.8.3. Certificación Previred",
+                level: 3,
+                start: "2026-11-16",
+                end: "2026-11-27",
+                group: "hito4"
+            },
+            {
+                id: "t4_56",
+                name: "4.8.4. Certificación ISL",
+                level: 3,
+                start: "2026-11-30",
+                end: "2026-12-04",
+                group: "hito4"
+            },
+            {
+                id: "t4_57",
+                name: "4.8.5. Paso a Producción",
+                level: 3,
+                start: "2026-12-07",
+                end: "2026-12-08",
+                group: "hito4"
+            },
+            {
+                id: "t4_58",
+                name: "4.8.6. Marcha Blanca",
+                level: 3,
+                start: "2026-12-09",
+                end: "2026-12-11",
+                group: "hito4"
             }
-        );
+        ];
 
-    todayLabel.innerHTML =
-        `HOY · ${formatDate}`;
+        // =========================================================
+        // APPLICATION STATE
+        // =========================================================
 
-    wrapper.scrollLeft =
-        position -
-        (wrapper.clientWidth / 2);
+        let state = {
+            tasks: [],
+            collapsedGroups: [],
+            searchQuery: "",
+            statusFilter: "all",
+            levelFilter: "all",
+            theme: "light",
+            selectedTaskId: null,
+            today: new Date(2026, 5, 1) // Fixed "today" representation matching: 2026-06-01
+        };
 
-});
+        // =========================================================
+        // DATA PERSISTENCE & INITIALIZATION
+        // =========================================================
 
-</script>
+        function initApp() {
+            // Load theme
+            state.theme = localStorage.getItem("roadmap_theme") || "light";
+            document.documentElement.setAttribute("data-theme", state.theme);
+            updateThemeUI();
+
+            // Load tasks from LocalStorage or default
+            const savedTasks = localStorage.getItem("roadmap_tasks");
+            if (savedTasks) {
+                state.tasks = JSON.parse(savedTasks);
+                // Check if Hito 4 is missing and auto-merge it
+                const hasHito4 = state.tasks.some(t => t.group === "hito4");
+                if (!hasHito4) {
+                    const hito4Tasks = DEFAULT_TASKS.filter(t => t.group === "hito4");
+                    state.tasks = [...state.tasks, ...hito4Tasks];
+                    saveTasksToStorage();
+                }
+            } else {
+                state.tasks = [...DEFAULT_TASKS];
+                saveTasksToStorage();
+            }
+
+            // Initialize collapsed groups: Hitos are collapsed by default as requested in original: "iniciar hitos cerrados"
+            state.collapsedGroups = ["hito3", "hito4"];
+
+            setupEventListeners();
+            renderAll();
+        }
+
+        function saveTasksToStorage() {
+            localStorage.setItem("roadmap_tasks", JSON.stringify(state.tasks));
+        }
+
+        // =========================================================
+        // CALCULATIONS ENGINE
+        // =========================================================
+
+        /**
+         * Calculates start and end bounds of the entire timeline
+         */
+        function getTimelineBounds() {
+            if (state.tasks.length === 0) {
+                return {
+                    start: new Date(2025, 11, 1),
+                    end: new Date(2026, 11, 31)
+                };
+            }
+
+            // Find min and max dates in task list
+            let minDate = new Date(2025, 11, 1); // Earliest baseline: Dec 2025
+            let maxDate = new Date(2026, 11, 31); // Latest baseline: Dec 2026
+
+            state.tasks.forEach(task => {
+                const tStart = new Date(task.start + "T00:00:00");
+                const tEnd = new Date(task.end + "T20:00:00");
+                if (tStart < minDate) minDate = new Date(tStart.getFullYear(), tStart.getMonth(), 1);
+                if (tEnd > maxDate) maxDate = new Date(tEnd.getFullYear(), tEnd.getMonth() + 1, 0); // end of that month
+            });
+
+            // Make sure we encompass at least Dec 2025 - Dec 2026
+            const baselineStart = new Date("2025-12-01T00:00:00");
+            const baselineEnd = new Date("2026-12-31T23:59:59");
+
+            return {
+                start: minDate < baselineStart ? minDate : baselineStart,
+                end: maxDate > baselineEnd ? maxDate : baselineEnd
+            };
+        }
+
+        /**
+         * Generates an array of months within the timeline range
+         */
+        function getMonthsInRange(start, end) {
+            const months = [];
+            const current = new Date(start.getFullYear(), start.getMonth(), 1);
+            const last = new Date(end.getFullYear(), end.getMonth(), 1);
+
+            const monthNames = [
+                "Dic 2025", "Ene 2026", "Feb 2026", "Mar 2026", "Abr 2026", "May 2026",
+                "Jun 2026", "Jul 2026", "Ago 2026", "Sep 2026", "Oct 2026", "Nov 2026", "Dic 2026"
+            ];
+
+            const standardMonthNames = [
+                "Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"
+            ];
+
+            while (current <= last) {
+                const yr = current.getFullYear();
+                const mo = current.getMonth();
+                
+                // Find human readable label
+                let label = "";
+                if (yr === 2025 && mo === 11) {
+                    label = "Dic 2025";
+                } else if (yr === 2026) {
+                    label = `${standardMonthNames[mo]} 2026`;
+                } else {
+                    label = `${standardMonthNames[mo]} ${yr}`;
+                }
+
+                months.push({
+                    year: yr,
+                    month: mo,
+                    label: label
+                });
+                current.setMonth(current.getMonth() + 1);
+            }
+            return months;
+        }
+
+        /**
+         * Calculates working days (business days Mon-Fri) between two dates
+         */
+        function calculateBusinessDays(startDateStr, endDateStr) {
+            const start = new Date(startDateStr + "T00:00:00");
+            const end = new Date(endDateStr + "T23:59:59");
+            if (isNaN(start.getTime()) || isNaN(end.getTime()) || start > end) return 0;
+            
+            let count = 0;
+            const curDate = new Date(start.getTime());
+            while (curDate <= end) {
+                const dayOfWeek = curDate.getDay();
+                if (dayOfWeek !== 0 && dayOfWeek !== 6) { // 0 = Sunday, 6 = Saturday
+                    count++;
+                }
+                curDate.setDate(curDate.getDate() + 1);
+            }
+            return count;
+        }
+
+        /**
+         * Calculates a task's metrics: duration, progress, and status
+         */
+        function calculateTaskMetrics(task) {
+            const start = new Date(task.start + "T00:00:00");
+            const end = new Date(task.end + "T23:59:59");
+            const today = state.today;
+
+            const totalDays = calculateBusinessDays(task.start, task.end);
+            const elapsedDays = Math.round((today - start) / (1000 * 60 * 60 * 24));
+
+            let progress = 0;
+            if (totalDays > 0) {
+                const totalCalendarDays = Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1;
+                if (totalCalendarDays > 0) {
+                    progress = (elapsedDays / totalCalendarDays) * 100;
+                }
+                progress = Math.max(0, Math.min(100, progress));
+            }
+            progress = Math.round(progress);
+
+            const diffStartDays = (start - today) / (1000 * 60 * 60 * 24);
+
+            let status = "pending"; // pending, progress, complete
+            let icon = "⚠";
+
+            if (today > end) {
+                status = "complete";
+                progress = 100;
+                icon = "✔";
+            } else if ((today >= start && today <= end) || diffStartDays <= 30) {
+                status = "progress";
+                icon = "⏳";
+            } else {
+                status = "pending";
+                progress = 0;
+                icon = "⚠";
+            }
+
+            return {
+                totalDays,
+                progress,
+                status,
+                icon
+            };
+        }
+
+        // =========================================================
+        // RENDERING SYSTEM
+        // =========================================================
+
+        function renderAll() {
+            const { start: timelineStart, end: timelineEnd } = getTimelineBounds();
+            const months = getMonthsInRange(timelineStart, timelineEnd);
+
+            renderHeaders(months);
+            renderRows(months, timelineStart, timelineEnd);
+            renderStats();
+            renderTodayLine(timelineStart, timelineEnd);
+        }
+
+        function renderHeaders(months) {
+            const theadRow = document.getElementById("ganttTheadRow");
+            if (!theadRow) return;
+
+            theadRow.innerHTML = `
+                <th class="sticky-header-taskk">Tarea</th>
+                <th class="sticky-header-dayss">Duración</th>
+                <th class="sticky-header-startt">Inicio</th>
+                <th class="sticky-header-endd">Fin</th>
+            `;
+
+            months.forEach(month => {
+                const th = document.createElement("th");
+                th.className = "month-col-header";
+                th.textContent = month.label;
+                theadRow.appendChild(th);
+            });
+        }
+
+        function renderRows(months, timelineStart, timelineEnd) {
+            const tbody = document.getElementById("ganttTbody");
+            if (!tbody) return;
+            tbody.innerHTML = "";
+
+            const totalTimelineDays = (timelineEnd - timelineStart) / (1000 * 60 * 60 * 24);
+            const monthColsCount = months.length;
+
+            // Filter and display tasks
+            const filteredTasks = state.tasks.filter(task => {
+                // Text search
+                if (state.searchQuery) {
+                    const query = state.searchQuery.toLowerCase();
+                    if (!task.name.toLowerCase().includes(query)) return false;
+                }
+
+                // Level Filter
+                if (state.levelFilter !== "all") {
+                    if (state.levelFilter === "hitos" && task.level !== 1) return false;
+                    if (state.levelFilter === "subtasks" && task.level === 1) return false;
+                }
+
+                // Status Filter
+                if (state.statusFilter !== "all") {
+                    const metrics = calculateTaskMetrics(task);
+                    if (metrics.status !== state.statusFilter) return false;
+                }
+
+                return true;
+            });
+
+            if (filteredTasks.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="${4 + monthColsCount}" style="text-align: center; color: var(--text-muted); padding: 40px; font-weight: 600;">
+                            🔍 No se encontraron tareas con los filtros aplicados.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            filteredTasks.forEach(task => {
+                const metrics = calculateTaskMetrics(task);
+                
+                // Check if row is collapsed (if its group is in collapsed list and this is not the main group header)
+                const isGroupCollapsed = state.collapsedGroups.includes(task.group);
+                const shouldHideRow = isGroupCollapsed && task.level > 1;
+
+                const tr = document.createElement("tr");
+                tr.className = `level-${task.level} ${shouldHideRow ? "hidden-row" : ""}`;
+                tr.dataset.id = task.id;
+
+                // Task name cell
+                let taskNameContent = "";
+                if (task.level === 1) {
+                    const isCollapsed = state.collapsedGroups.includes(task.group);
+                    taskNameContent = `
+                        <div class="task-title-flex">
+                            <button class="toggle-btn" data-group="${task.group}">
+                                ${isCollapsed ? "+" : "−"}
+                            </button>
+                            <span>${task.name}</span>
+                        </div>
+                    `;
+                } else {
+                    taskNameContent = task.name;
+                }
+
+                // Format dates
+                const formattedStart = formatDateString(task.start);
+                const formattedEnd = formatDateString(task.end);
+                
+                tr.innerHTML = `
+                    
+                    <td class="sticky-col-task" onclick="handleRowClick(event, '${task.id}')">
+                        ${taskNameContent}
+                    </td>
+                    
+                    <td class="sticky-col-dayss" onclick="handleRowClick(event, '${task.id}')">
+                        ${metrics.totalDays} días
+                    </td>
+                    
+                    <td class="sticky-col-startt" onclick="handleRowClick(event, '${task.id}')">
+                        ${formattedStart}
+                    </td>
+                    <td class="sticky-col-endd" onclick="handleRowClick(event, '${task.id}')">
+                        ${formattedEnd}
+                    </td>
+                    
+                    <td class="gantt-cell" colspan="${monthColsCount}">
+                        <!-- The dynamically positioned Gantt Bar -->
+                        <div class="bar status-${metrics.status}" 
+                             id="bar-${task.id}"
+                             data-id="${task.id}"
+                             style="${calculateBarStyle(task, timelineStart, totalTimelineDays)}">
+                             
+                             <div class="bar-progress-fill" style="width: ${metrics.progress}%"></div>
+                             
+                             <div class="bar-content-wrapper">
+                                 <span class="bar-icon">${metrics.icon}</span>
+                                 <span style="overflow: hidden; text-overflow: ellipsis;">${task.name}</span>
+                                 <span>(${metrics.progress}%)</span>
+                             </div>
+                        </div>
+                    </td>
+                `;
+                
+
+                tbody.appendChild(tr);
+            });
+
+            setupRowToggles();
+            setupBarTooltips();
+        }
+
+        function calculateBarStyle(task, timelineStart, totalTimelineDays) {
+            const start = new Date(task.start + "T00:00:00");
+            const end = new Date(task.end + "T23:59:59");
+
+            const elapsedDays = (start - timelineStart) / (1000 * 60 * 60 * 24);
+            const durationDays = Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1;
+
+            let leftPercent = (elapsedDays / totalTimelineDays) * 100;
+            let widthPercent = (durationDays / totalTimelineDays) * 100;
+
+            // Boundary constraints
+            leftPercent = Math.max(0, Math.min(100, leftPercent));
+            widthPercent = Math.max(0.5, Math.min(100 - leftPercent, widthPercent));
+
+            return `left: ${leftPercent.toFixed(3)}%; width: ${widthPercent.toFixed(3)}%;`;
+        }
+
+        function renderStats() {
+            const totalCount = state.tasks.length;
+            let completeCount = 0;
+            let progressCount = 0;
+            let pendingCount = 0;
+
+            state.tasks.forEach(task => {
+                const { status } = calculateTaskMetrics(task);
+                if (status === "complete") completeCount++;
+                else if (status === "progress") progressCount++;
+                else pendingCount++;
+            });
+
+            const pctComplete = totalCount ? Math.round((completeCount / totalCount) * 100) : 0;
+            const pctProgress = totalCount ? Math.round((progressCount / totalCount) * 100) : 0;
+            const pctPending = totalCount ? Math.round((pendingCount / totalCount) * 100) : 0;
+
+            // Write counts to UI
+            document.getElementById("statTotalCount").textContent = totalCount;
+            document.getElementById("statCompleteCount").textContent = `${completeCount}`;
+            document.getElementById("statCompletePct").textContent = `${pctComplete}% del total`;
+            document.getElementById("statProgressCount").textContent = `${progressCount}`;
+            document.getElementById("statProgressPct").textContent = `${pctProgress}% del total`;
+            document.getElementById("statPendingCount").textContent = `${pendingCount}`;
+            document.getElementById("statPendingPct").textContent = `${pctPending}% del total`;
+        }
+
+        function renderTodayLine(timelineStart, timelineEnd) {
+            const todayLineWrapper = document.getElementById("todayTimelineWrapper");
+            if (!todayLineWrapper) return;
+
+            const totalDays = (timelineEnd - timelineStart) / (1000 * 60 * 60 * 24);
+            const elapsedDays = (state.today - timelineStart) / (1000 * 60 * 60 * 24);
+
+            let percent = elapsedDays / totalDays;
+            percent = Math.max(0, Math.min(1, percent));
+
+            // Get offsets of sticky columns to position perfectly within Gantt container
+            const sticky1 = document.querySelector(".sticky-header-task")?.offsetWidth || 380;
+            const sticky2 = document.querySelector(".sticky-header-days")?.offsetWidth || 110;
+            const sticky3 = document.querySelectorAll(".sticky-header-start")[0]?.offsetWidth || 130;
+            const sticky4 = document.querySelectorAll(".sticky-header-end")[0]?.offsetWidth || 130;
+
+            const fixedColumnsWidth = sticky1 + sticky2 + sticky3 + sticky4;
+
+            const roadmap = document.querySelector(".gantt-table");
+            if (!roadmap) return;
+            const timelineWidth = roadmap.scrollWidth - fixedColumnsWidth;
+
+            const positionLeft = fixedColumnsWidth + (timelineWidth * percent);
+
+            todayLineWrapper.style.left = `${positionLeft}px`;
+            todayLineWrapper.style.display = "block";
+            todayLineWrapper.style.height = `${roadmap.offsetHeight}px`;
+
+            // Set text label
+            const labelDateText = state.today.toLocaleDateString("es-ES", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            });
+            document.getElementById("todayTimelineLabel").innerHTML = `HOY · ${labelDateText}`;
+        }
+
+        // =========================================================
+        // NAVIGATION & ACTIONS
+        // =========================================================
+
+        function scrollToToday() {
+            const { start: timelineStart, end: timelineEnd } = getTimelineBounds();
+            const scrollContainer = document.getElementById("ganttScrollContainer");
+            const totalDays = (timelineEnd - timelineStart) / (1000 * 60 * 60 * 24);
+            const elapsedDays = (state.today - timelineStart) / (1000 * 60 * 60 * 24);
+            
+            let percent = elapsedDays / totalDays;
+            percent = Math.max(0, Math.min(1, percent));
+
+            const sticky1 = document.querySelector(".sticky-header-task")?.offsetWidth || 380;
+            const sticky2 = document.querySelector(".sticky-header-days")?.offsetWidth || 110;
+            const sticky3 = document.querySelector(".sticky-header-start")?.offsetWidth || 130;
+            const sticky4 = document.querySelector(".sticky-header-end")?.offsetWidth || 130;
+            const fixedColumnsWidth = sticky1 + sticky2 + sticky3 + sticky4;
+
+            const table = document.querySelector(".gantt-table");
+            if (!table || !scrollContainer) return;
+            
+            const timelineWidth = table.scrollWidth - fixedColumnsWidth;
+            const scrollLeftPosition = fixedColumnsWidth + (timelineWidth * percent) - (scrollContainer.clientWidth / 2);
+
+            scrollContainer.scrollTo({
+                left: scrollLeftPosition,
+                behavior: "smooth"
+            });
+        }
+
+        // =========================================================
+        // COLLAPSE / EXPAND MANAGEMENT
+        // =========================================================
+
+        function setupRowToggles() {
+            const buttons = document.querySelectorAll(".toggle-btn");
+            buttons.forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const groupName = btn.dataset.group;
+                    const index = state.collapsedGroups.indexOf(groupName);
+
+                    if (index > -1) {
+                        // Expand
+                        state.collapsedGroups.splice(index, 1);
+                    } else {
+                        // Collapse
+                        state.collapsedGroups.push(groupName);
+                    }
+
+                    renderAll();
+                });
+            });
+        }
+
+        // =========================================================
+        // TOOLTIP CONTROLLER
+        // =========================================================
+
+        function setupBarTooltips() {
+            const bars = document.querySelectorAll(".bar");
+            const tooltip = document.getElementById("ganttTooltip");
+            if (!tooltip) return;
+
+            bars.forEach(bar => {
+                bar.addEventListener("mouseenter", (e) => {
+                    const taskId = bar.dataset.id;
+                    const task = state.tasks.find(t => t.id === taskId);
+                    if (!task) return;
+
+                    const metrics = calculateTaskMetrics(task);
+                    const statusLabel = {
+                        complete: "Finalizado",
+                        progress: "En Curso / Próximo",
+                        pending: "Futuro"
+                    }[metrics.status];
+
+                    tooltip.innerHTML = `
+                        <div class="tooltip-title">${task.name}</div>
+                        <div class="tooltip-row">
+                            <span class="tooltip-label">Nivel:</span>
+                            <span class="tooltip-value">${task.level === 1 ? 'Hito Principal' : task.level === 2 ? 'Sub-Hito' : 'Subtarea'}</span>
+                        </div>
+                        <div class="tooltip-row">
+                            <span class="tooltip-label">Inicio:</span>
+                            <span class="tooltip-value">${formatDateString(task.start)}</span>
+                        </div>
+                        <div class="tooltip-row">
+                            <span class="tooltip-label">Fin:</span>
+                            <span class="tooltip-value">${formatDateString(task.end)}</span>
+                        </div>
+                        <div class="tooltip-row">
+                            <span class="tooltip-label">Duración:</span>
+                            <span class="tooltip-value">${metrics.totalDays} días</span>
+                        </div>
+                        <div class="tooltip-row" style="align-items: center;">
+                            <span class="tooltip-label">Estado:</span>
+                            <span class="tooltip-badge ${metrics.status}">${statusLabel}</span>
+                        </div>
+                        <div style="margin-top: 4px;">
+                            <div class="tooltip-row">
+                                <span class="tooltip-label">Progreso:</span>
+                                <span class="tooltip-value">${metrics.progress}%</span>
+                            </div>
+                            <div class="tooltip-progress-container">
+                                <div class="tooltip-progress-bar" style="width: ${metrics.progress}%"></div>
+                            </div>
+                        </div>
+                    `;
+
+                    tooltip.classList.add("visible");
+                });
+
+                bar.addEventListener("mousemove", (e) => {
+                    // Position tooltip dynamically near cursor
+                    const tooltipWidth = tooltip.offsetWidth;
+                    const tooltipHeight = tooltip.offsetHeight;
+                    let x = e.clientX + 16;
+                    let y = e.clientY + 16;
+
+                    // Prevent tooltip going off screen
+                    if (x + tooltipWidth > window.innerWidth) {
+                        x = e.clientX - tooltipWidth - 16;
+                    }
+                    if (y + tooltipHeight > window.innerHeight) {
+                        y = e.clientY - tooltipHeight - 16;
+                    }
+
+                    tooltip.style.left = `${x}px`;
+                    tooltip.style.top = `${y}px`;
+                });
+
+                bar.addEventListener("mouseleave", () => {
+                    tooltip.classList.remove("visible");
+                });
+            });
+        }
+
+        // =========================================================
+        // CRUD TASK MANAGEMENT
+        // =========================================================
+
+        function openAddTaskDrawer() {
+            state.selectedTaskId = null;
+            document.getElementById("drawerTitle").textContent = "Nuevo Hito / Tarea";
+            
+            // Clear forms
+            document.getElementById("taskIdField").value = "";
+            document.getElementById("taskNameField").value = "";
+            document.getElementById("taskLevelField").value = "3";
+            document.getElementById("taskStartField").value = "2026-06-01";
+            document.getElementById("taskEndField").value = "2026-06-30";
+            document.getElementById("taskGroupField").value = "hito3";
+            
+            // Hide delete button for additions
+            document.getElementById("btnDeleteTask").style.display = "none";
+            
+            toggleDrawer(true);
+        }
+
+        function handleRowClick(event, id) {
+            // Avoid opening drawer if they click on toggle button
+            if (event.target.closest(".toggle-btn")) return;
+            
+            state.selectedTaskId = id;
+            const task = state.tasks.find(t => t.id === id);
+            if (!task) return;
+
+            document.getElementById("drawerTitle").textContent = "Editar Hito / Tarea";
+            
+            // Fill forms
+            document.getElementById("taskIdField").value = task.id;
+            document.getElementById("taskNameField").value = task.name;
+            document.getElementById("taskLevelField").value = task.level;
+            document.getElementById("taskStartField").value = task.start;
+            document.getElementById("taskEndField").value = task.end;
+            document.getElementById("taskGroupField").value = task.group || "hito3";
+            
+            // Show delete button
+            document.getElementById("btnDeleteTask").style.display = "block";
+            
+            toggleDrawer(true);
+        }
+
+        function closeDrawer() {
+            toggleDrawer(false);
+        }
+
+        function toggleDrawer(open) {
+            const drawer = document.getElementById("taskDrawer");
+            const overlay = document.getElementById("drawerOverlay");
+            if (!drawer || !overlay) return;
+
+            if (open) {
+                overlay.classList.add("open");
+                drawer.classList.add("open");
+            } else {
+                overlay.classList.remove("open");
+                drawer.classList.remove("open");
+            }
+        }
+
+        function handleSaveTask(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById("taskIdField").value;
+            const name = document.getElementById("taskNameField").value.trim();
+            const level = parseInt(document.getElementById("taskLevelField").value);
+            const start = document.getElementById("taskStartField").value;
+            const end = document.getElementById("taskEndField").value;
+            const group = document.getElementById("taskGroupField").value;
+
+            if (!name || !start || !end) {
+                alert("Por favor rellene todos los campos requeridos.");
+                return;
+            }
+
+            if (new Date(start) > new Date(end)) {
+                alert("La fecha de inicio no puede ser posterior a la fecha de fin.");
+                return;
+            }
+
+            if (id) {
+                // Edit Mode
+                const taskIdx = state.tasks.findIndex(t => t.id === id);
+                if (taskIdx > -1) {
+                    state.tasks[taskIdx] = { id, name, level, start, end, group };
+                }
+            } else {
+                // Add Mode
+                const newId = "t_" + Date.now();
+                state.tasks.push({
+                    id: newId,
+                    name,
+                    level,
+                    start,
+                    end,
+                    group
+                });
+            }
+
+            saveTasksToStorage();
+            renderAll();
+            closeDrawer();
+        }
+
+        function handleDeleteTask() {
+            const id = document.getElementById("taskIdField").value;
+            if (!id) return;
+
+            if (confirm("¿Estás seguro de que deseas eliminar esta tarea/hito? Esta acción no se puede deshacer.")) {
+                state.tasks = state.tasks.filter(t => t.id !== id);
+                saveTasksToStorage();
+                renderAll();
+                closeDrawer();
+            }
+        }
+
+        // =========================================================
+        // EVENT LISTENERS & FILTER HANDLERS
+        // =========================================================
+
+        function setupEventListeners() {
+            // Search
+            const searchInput = document.getElementById("taskSearchInput");
+            if (searchInput) {
+                searchInput.addEventListener("input", (e) => {
+                    state.searchQuery = e.target.value;
+                    renderAll();
+                });
+            }
+
+            // Status filter
+            const statusFilter = document.getElementById("statusFilter");
+            if (statusFilter) {
+                statusFilter.addEventListener("change", (e) => {
+                    state.statusFilter = e.target.value;
+                    renderAll();
+                });
+            }
+
+            // Level filter
+            const levelFilter = document.getElementById("levelFilter");
+            if (levelFilter) {
+                levelFilter.addEventListener("change", (e) => {
+                    state.levelFilter = e.target.value;
+                    renderAll();
+                });
+            }
+
+            // Today trigger
+            const todayBtn = document.getElementById("btnGoToToday");
+            if (todayBtn) {
+                todayBtn.addEventListener("click", () => {
+                    scrollToToday();
+                });
+            }
+
+            // Drawer form
+            const form = document.getElementById("taskForm");
+            if (form) {
+                form.addEventListener("submit", handleSaveTask);
+            }
+
+            // Theme Toggle
+            const themeBtn = document.getElementById("btnThemeToggle");
+            if (themeBtn) {
+                themeBtn.addEventListener("click", toggleTheme);
+            }
+        }
+
+        // =========================================================
+        // THEME SWITCHER
+        // =========================================================
+
+        function toggleTheme() {
+            state.theme = state.theme === "light" ? "dark" : "light";
+            localStorage.setItem("roadmap_theme", state.theme);
+            document.documentElement.setAttribute("data-theme", state.theme);
+            updateThemeUI();
+        }
+
+        function updateThemeUI() {
+            const btn = document.getElementById("btnThemeToggle");
+            if (!btn) return;
+            btn.innerHTML = state.theme === "light" ? "🌙 Modo Oscuro" : "☀️ Modo Claro";
+        }
+
+        // =========================================================
+        // HELPER UTILITIES
+        // =========================================================
+
+        function formatDateString(dateStr) {
+            if (!dateStr) return "";
+            const parts = dateStr.split("-");
+            if (parts.length !== 3) return dateStr;
+            // YYYY-MM-DD to DD-MM-YYYY
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+
+        // =========================================================
+        // APP STARTUP
+        // =========================================================
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initApp();
+            
+            // Auto-scroll to today in 500ms to allow calculations to settle
+            setTimeout(() => {
+                scrollToToday();
+            }, 500);
+        });
+    </script>
 
 </body>
 </html>
