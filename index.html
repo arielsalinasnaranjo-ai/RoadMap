@@ -2029,7 +2029,8 @@
             levelFilter: "all",
             theme: "dark", // se cambio de light a dark
             selectedTaskId: null,
-            today: new Date(2026, 5, 1) // Fixed "today" representation matching: 2026-06-01
+            //today: new Date(2026, 5, 1) // Fixed "today" representation matching: 2026-06-01
+            today: new Date(new Date().toDateString()) 
         };
 
         // =========================================================
